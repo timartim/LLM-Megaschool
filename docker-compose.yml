@@ -17,8 +17,8 @@ services:
           cpus: '5.0'
           memory: 6G
         reservations:
-          cpus: '3.0'
-          memory: 4G
+          cpus: '5.0'
+          memory: 6G
     # Если нужно GPU
     # runtime: nvidia
     # deploy:

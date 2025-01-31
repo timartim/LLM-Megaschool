@@ -61,7 +61,7 @@ async def log_requests(request: Request, call_next):
 @app.post("/api/request", response_model=PredictionResponse)
 async def predict(body: PredictionRequest):
     try:
-        await logger.info(f"Processing prediction request with id: {body.id}, query='{body.query}'")
+        # await logger.info(f"Processing prediction request with id: {body.id}, query='{body.query}'")
 
         # Шаг 1: параллельно:
         # (a) Получаем гугл-запрос
@@ -71,11 +71,11 @@ async def predict(body: PredictionRequest):
         ]
         refined_query, = await asyncio.gather(*tasks)
 
-        await logger.info(f"Refined query: {refined_query}")
+        # await logger.info(f"Refined query: {refined_query}")
 
         # Шаг 2: Идём в Google (через другое api, потому что у этого ограничений больше)
         links = await search_serpstack(refined_query)
-        await logger.info(f"Got links: {links}")
+        # await logger.info(f"Got links: {links}")
 
         # Шаг 3: Скачиваем тексты, сжимаем до нужных частей
         raw_pages = await fetch_page_texts(links)
@@ -87,7 +87,7 @@ async def predict(body: PredictionRequest):
         explanation = await ask_explanation(body.query, big_context)
 
         chosen_variant = await ask_which_variant(body.query, explanation)
-        await logger.info(f"chosen_variant = {chosen_variant}")
+        # await logger.info(f"chosen_variant = {chosen_variant}")
 
         # Формируем ответ
         final_answer = chosen_variant if chosen_variant is not None else None
@@ -103,12 +103,12 @@ async def predict(body: PredictionRequest):
             reasoning=explanation + "\n Ответ сгенерирован yandexgpt-32k/rc",
             sources=sources
         )
-        await logger.info(f"Final response: {resp}")
+        # await logger.info(f"Final response: {resp}")
         return resp
 
     except ValueError as e:
-        await logger.error(f"Validation error: {str(e)}")
+        # await logger.error(f"Validation error: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        await logger.error(f"Internal error: {str(e)}")
+        # await logger.error(f"Internal error: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")

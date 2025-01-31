@@ -2,6 +2,7 @@ import requests
 import argparse
 import time
 from typing import List, Dict
+import concurrent.futures
 
 TEST_CASES = [
     {
@@ -106,50 +107,61 @@ TEST_CASES = [
     }
 ]
 
+def run_test(test_case: Dict, api_url: str) -> bool:
+    """
+    Выполняет один API-запрос по тестовому кейсу.
+    Возвращает True, если ответ соответствует ожидаемому, иначе False.
+    """
+    try:
+        response = requests.post(
+            f"{api_url}/api/request",
+            json={"id": test_case["id"], "query": test_case["query"]},
+            timeout=60
+        )
 
-def run_tests(api_url: str):
-    success_count = 0
-    total_cases = len(TEST_CASES)
+        if response.status_code != 200:
+            print(f"Test {test_case['id']} ❌: HTTP Error {response.status_code}")
+            return False
 
-    start_time = time.perf_counter()  # Начало отсчета времени
+        response_data = response.json()
+        received_answer = response_data.get("answer")
 
-    for test_case in TEST_CASES:
-        try:
-            response = requests.post(
-                f"{api_url}/api/request",
-                json={"id": test_case["id"], "query": test_case["query"]},
-                timeout=15
-            )
+        if received_answer == test_case["expected_answer"]:
+            print(f"Test {test_case['id']} ✅: Correct answer {received_answer}")
+            return True
+        else:
+            print(f"Test {test_case['id']} ❌: Expected {test_case['expected_answer']}, got {received_answer}")
+            return False
 
-            if response.status_code != 200:
-                print(f"Test {test_case['id']} ❌: HTTP Error {response.status_code}")
-                continue
-
-            response_data = response.json()
-            received_answer = response_data.get("answer")
-
-            if received_answer == test_case["expected_answer"]:
-                print(f"Test {test_case['id']} ✅: Correct answer {received_answer}")
-                success_count += 1
-            else:
-                print(f"Test {test_case['id']} ❌: Expected {test_case['expected_answer']}, got {received_answer}")
-
-        except requests.Timeout:
-            print(f"Test {test_case['id']} ❌: Request timeout")
-        except Exception as e:
-            print(f"Test {test_case['id']} ❌: Error - {str(e)}")
-
-    end_time = time.perf_counter()
-    elapsed_time = end_time - start_time
-
-    print(f"\nResults: {success_count}/{total_cases} passed ({success_count / total_cases:.0%})")
-    print(f"Total execution time: {elapsed_time:.2f} seconds")
-
+    except requests.Timeout:
+        print(f"Test {test_case['id']} ❌: Request timeout")
+    except Exception as e:
+        print(f"Test {test_case['id']} ❌: Error - {str(e)}")
+    return False
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="API Tester for ITMO Q&A System")
     parser.add_argument("--api-url", required=True, help="Base URL of the API (e.g. http://localhost:8080)")
     args = parser.parse_args()
+    api_url = args.api_url.rstrip('/')
 
-    print(f"Starting tests for API at {args.api_url}...\n")
-    run_tests(args.api_url.rstrip('/'))
+    print(f"Starting tests for API at {api_url}...\n")
+
+    total_requests = 100
+    test_queue: List[Dict] = TEST_CASES * 5
+
+    start_time = time.perf_counter()
+    success_count = 0
+
+    max_workers = 10
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_test = {executor.submit(run_test, test_case, api_url): test_case for test_case in test_queue}
+
+        for future in concurrent.futures.as_completed(future_to_test):
+            if future.result():
+                success_count += 1
+
+    elapsed_time = time.perf_counter() - start_time
+    print(f"\nResults: {success_count}/{total_requests} passed ({success_count / total_requests:.0%})")
+    print(f"Total execution time: {elapsed_time:.2f} seconds")

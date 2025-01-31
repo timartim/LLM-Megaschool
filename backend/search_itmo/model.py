@@ -17,10 +17,10 @@ async def run_model(messages: list[dict]) -> str:
     ]
     Возвращает текст первого ответа модели.
     """
-    logger.info(f"Отправляем сообщения в модель: {messages}")
+    # logger.info(f"Отправляем сообщения в модель: {messages}")
     result = model.run(messages)
     if result and result.alternatives:
         text = result.alternatives[0].text
-        logger.info(f"Модель вернула:\n{text}")
+        # logger.info(f"Модель вернула:\n{text}")
         return text
     return "no model information"

@@ -64,14 +64,14 @@ async def search_serpstack(query: str) -> List[str]:
                     timeout=aiohttp.ClientTimeout(total=5)
             ) as resp:
 
-                logger.info(f"Request URL: {resp.url}")
+                # logger.info(f"Request URL: {resp.url}")
 
                 if resp.status != 200:
                     logger.error(f"HTTP Error {resp.status}")
                     return []
 
                 data = await resp.json()
-                logger.debug(f"Raw API response: {data}")
+                # logger.debug(f"Raw API response: {data}")
 
                 # Проверка структуры ответа
                 if not isinstance(data.get("organic_results"), list):
@@ -89,7 +89,7 @@ async def search_serpstack(query: str) -> List[str]:
                         if len(valid_urls) >= 3:
                             break
 
-                logger.info(f"Found {len(valid_urls)} valid URLs: {valid_urls}")
+                # logger.info(f"Found {len(valid_urls)} valid URLs: {valid_urls}")
                 return valid_urls
 
     except Exception as e:
@@ -99,20 +99,20 @@ async def search_serpstack(query: str) -> List[str]:
 
 async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:
     try:
-        logger.info(f"Начинаю загрузку страницы: {link}")
+        # logger.info(f"Начинаю загрузку страницы: {link}")
         async with session.get(link) as resp:
 
             content = await asyncio.wait_for(resp.text(), timeout=1.0)
             text = BeautifulSoup(content, "html.parser").get_text()
-            logger.info(f"Страница {link} загружена, размер: {len(text)} символов")
+            # logger.info(f"Страница {link} загружена, размер: {len(text)} символов")
             return text + f"!!!SOURCE: {link}!!!"
     except Exception as e:
-        logger.error(f"Ошибка при загрузке {link}: {type(e).__name__}")
+        # logger.error(f"Ошибка при загрузке {link}: {type(e).__name__}")
         return ""
 
 
 async def fetch_page_texts(links: List[str]) -> List[str]:
-    logger.info(f"Начинаю загрузку списка ссылок: {links}")
+    # logger.info(f"Начинаю загрузку списка ссылок: {links}")
     async with aiohttp.ClientSession() as session:
 
         tasks = [
