@@ -5,7 +5,7 @@ from .config import MODEL_AUTH_KEY
 logger = logging.getLogger("uvicorn")
 
 sdk = YCloudML(folder_id="b1gensvl1uk7ugci74r7", auth=MODEL_AUTH_KEY)
-model = sdk.models.completions("yandexgpt-32k", model_version="rc").configure(temperature=0.5)
+model = sdk.models.completions("yandexgpt-32k", model_version="rc").configure(temperature=0.2)
 
 async def run_model(messages: list[dict]) -> str:
     """

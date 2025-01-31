@@ -10,7 +10,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from search_itmo.services import (
     transform_query_for_google,
-    check_is_multiple_choice,
     search_google,
     fetch_page_texts,
     compress_pages_for_itmo,
@@ -70,11 +69,10 @@ async def predict(body: PredictionRequest):
         # (b) Проверяем, есть ли multiple-choice
         tasks = [
             transform_query_for_google(body.query),
-            check_is_multiple_choice(body.query),
         ]
-        refined_query, is_multi = await asyncio.gather(*tasks)
+        refined_query = await asyncio.gather(*tasks)
 
-        await logger.info(f"Refined query: {refined_query}, is_multi={is_multi}")
+        await logger.info(f"Refined query: {refined_query}")
 
         # Шаг 2: Идём в Google
         links = await search_google(refined_query)
@@ -84,14 +82,13 @@ async def predict(body: PredictionRequest):
         raw_pages = await fetch_page_texts(links)
         big_context = await compress_pages_for_itmo(raw_pages)
 
-        # Шаг 4: если multiple-choice => спрашиваем модель, какой вариант правильный
-        chosen_variant: Optional[int] = None
-        if is_multi:
-            chosen_variant = await ask_which_variant(body.query, big_context)
-            await logger.info(f"chosen_variant = {chosen_variant}")
+
 
         # Шаг 5: всегда спрашиваем "пояснение"
-        explanation = await ask_explanation(body.query, big_context, chosen_variant)
+        explanation = await ask_explanation(body.query, big_context)
+
+        chosen_variant = await ask_which_variant(body.query, explanation)
+        await logger.info(f"chosen_variant = {chosen_variant}")
 
         # Формируем ответ
         final_answer = chosen_variant if chosen_variant is not None else None

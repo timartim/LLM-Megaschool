@@ -10,7 +10,7 @@ from .config import SEARCH_API_KEY, CX
 from .model import run_model
 
 logger = logging.getLogger("uvicorn")
-SEARCH_URL = "https://www.googleapis.com/customsearch/v1"
+SEARCH_URL = "https://www.googleapis.com/customsearch/v1/siterestrict?"
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s"
@@ -27,25 +27,17 @@ async def transform_query_for_google(original_query: str) -> str:
             "Не добавляй варианты ответа (1., 2. и т.д.)."
         )
     }
+    assistant_msg = {
+        "role": "assistant",
+        "text": (
+            "Преобразованный запрос должен быть максимально точным и релевантным для поиска информации об ИТМО."
+        )
+    }
     user_msg = {"role": "user", "text": original_query}
-    messages = [system_msg, user_msg]
+    messages = [system_msg, assistant_msg, user_msg]
     result = await run_model(messages)
     return result.strip() or original_query
 
-
-async def check_is_multiple_choice(query: str) -> bool:
-    """
-    Запрашиваем у LLM, есть ли варианты (yes/no).
-    """
-    system_msg = {
-        "role": "system",
-        "text": "Есть ли в отправленном тебе запросе варианты ответа на него? ответь строго да или нет и только это."
-    }
-    user_msg = {"role": "user", "text": query}
-    messages = [system_msg, user_msg]
-    raw = await run_model(messages)
-
-    return (raw.strip().lower() == "да")
 
 
 async def search_google(query: str) -> List[str]:
@@ -74,7 +66,7 @@ async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:
             content = await asyncio.wait_for(resp.text(), timeout=1.0)
             text = BeautifulSoup(content, "html.parser").get_text()
             logger.info(f"Страница {link} загружена, размер: {len(text)} символов")
-            return text
+            return text + f"!!!SOURCE: {link}!!!"
     except Exception as e:
         logger.error(f"Ошибка при загрузке {link}: {type(e).__name__}")
         return ""
@@ -128,9 +120,19 @@ async def compress_pages_for_itmo(raw_texts: List[str]) -> str:
     system_msg = {
         "role": "system",
         "text": (
-            "Тебе дан текст страницы. Оставь только то, что связано с "
-            "Университетом ИТМО. Если нет упоминаний, напиши 'нет информации'."
-        ),
+            "Тебе дан текст страницы. Твоя задача — извлечь только ту информацию, которая связана с "
+            "Университетом ИТМО. Это включает упоминания о факультетах, лабораториях, проектах, событиях, "
+            "студентах, преподавателях, достижениях и других аспектах, непосредственно связанных с ИТМО. "
+            "Остаться должно максимум 5 предложений. "
+            "Не добавляй ничего сверх необходимого, не изменяй формат текста и не добавляй комментарии.\n\n"
+        )
+    }
+
+    assistant_msg = {
+        "role": "assistant",
+        "text": (
+            "Используй свои знания и предоставленный текст чтобы получить информацию об ИТМО"
+        )
     }
 
     summaries = []
@@ -140,17 +142,17 @@ async def compress_pages_for_itmo(raw_texts: List[str]) -> str:
         # 2. Удаляем все whitespace-символы
         text_one_space = re.sub(r"\s+", " ", text_no_html).strip()
 
-        # 3. Оставляем только первые 400 символов (нужна скорость)
-        text_truncated = text_one_space[:400]
+        # 3. Оставляем только первые 4000 символов (нужна скорость)
+        text_truncated = text_one_space[:200]
 
         # 4. Готовим запрос для модели
         user_msg = {"role": "user", "text": text_truncated}
-        messages = [system_msg, user_msg]
+        messages = [system_msg, assistant_msg, user_msg]
 
         # Вызываем вашу LLM/модель
         summary = await run_model(messages)
 
-        logger.info(f"Page #{idx} summary (first 100 chars): {summary[:100]}...")
+        logger.info(f"Page #{idx} summary (first 50 chars): {summary[:50]}...")
         summaries.append(summary.strip())
 
     # Объединяем сжатую информацию со всех страниц
@@ -166,15 +168,27 @@ async def ask_which_variant(user_query: str, big_context: str) -> Optional[int]:
     system_msg = {
         "role": "system",
         "text": (
-            "У пользователя есть вопрос с вариантами ответа. Опираясь на контекст, в первой строке напиши номер сделай это как можно быстрее. "
-            "правильного варианта (1..N). Если нельзя определить — напиши null."
+            "У тебя есть вопрос с вариантами ответа и ответ на него. Твоя задача определить правильный вариант ответа, опираясь на ответ модели."
+            "Если предоставленной информации недостаточно используй свои знания"
+            "В первой строке напиши номер правильного варианта (1..N). "
+            "Если ответ отсутствует опирайся на свои знаения"
+            "Ни в коем случае не пиши ничего кроме варианта ответа или 'null', если он отсутсвует.\n\n"
+            "Примеры:\n"
+            "Вопрос: Какая планета является самой большой в Солнечной системе?\n1. Земля\n2. Марс\n3. Юпитер\n4. Сатурн\nКонтекст: Юпитер — самая большая планета в нашей Солнечной системе, обладающая самой большой массой и диаметром.\nОтвет: 3\n\n"
         )
     }
+    assistant_msg = {
+        "role": "assistant",
+        "text": (
+            "опирайся на свои знаения и ответ модели при ответе"
+        )
+    }
+
     user_msg = {
         "role": "user",
-        "text": f"Вопрос: {user_query}\n\nКонтекст:\n{big_context}"
+        "text": f"Вопрос: {user_query}\n\nОтвет модели:\n{big_context}"
     }
-    messages = [system_msg, user_msg]
+    messages = [system_msg, assistant_msg, user_msg]
     raw = await run_model(messages)
     lines = raw.strip().split("\n", 1)
     first_line = lines[0].strip().lower() if lines else "null"
@@ -184,22 +198,23 @@ async def ask_which_variant(user_query: str, big_context: str) -> Optional[int]:
     return None
 
 
-async def ask_explanation(user_query: str, big_context: str, chosen_variant: Optional[int]) -> str:
+async def ask_explanation(user_query: str, big_context: str) -> str:
     """
     Спросить у модели пояснение. Если вариант выбран, можно подмешать его.
     """
     sys_msg = {
         "role": "system",
         "text": (
-            "Объясни ответ на вопрос. Учитывай контекст про ИТМО. Сделай 2 предложения и как можно быстрее. Скажи откуда ты взял эту информацию"
-            "Если есть выбранный вариант, упомяни почему именно он верен."
+            "Ты - эксперт по анализу информации об Университете ИТМО. Твоя задача выбрать ответ из предложенных или ответить на вопрос "
+            "Ответ должен состоять из двух предложений и быть максимально кратким. В первом предложении напиши сам ответ. Во втором предложении укажи источник информации.\n\n"
         )
     }
-    variant_str = f"(Выбранный вариант: {chosen_variant})" if chosen_variant else ""
     user_msg = {
         "role": "user",
-        "text": f"{user_query}\n\nКонтекст:\n{big_context}\n\n{variant_str}"
+        "text": f"{user_query}\n\nКонтекст:\n{big_context}"
     }
     messages = [sys_msg, user_msg]
     explanation = await run_model(messages)
     return explanation.strip()
+
+
