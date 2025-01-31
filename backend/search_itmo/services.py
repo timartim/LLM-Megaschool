@@ -5,12 +5,12 @@ import aiohttp
 import asyncio
 from bs4 import BeautifulSoup
 from typing import List, Optional
-
-from .config import SEARCH_API_KEY, CX
+from urllib.parse import quote_plus
+from .config import SEARCH_API_KEY, SEARCH_URL
 from .model import run_model
 
 logger = logging.getLogger("uvicorn")
-SEARCH_URL = "https://www.googleapis.com/customsearch/v1/siterestrict?"
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s"
@@ -39,30 +39,69 @@ async def transform_query_for_google(original_query: str) -> str:
     return result.strip() or original_query
 
 
+async def search_serpstack(query: str) -> List[str]:
+    """
+    Выполняет поиск через Serpstack API и возвращает список URL-адресов органических результатов.
+    """
 
-async def search_google(query: str) -> List[str]:
-    logger.info(f"search_google: query='{query}'")
-    params = {"key": SEARCH_API_KEY, "cx": CX, "q": query, "num": 5}
-    async with aiohttp.ClientSession() as session:
-        async with session.get(SEARCH_URL, params=params) as resp:
-            logger.info(f"search_google status={resp.status}")
-            if resp.status == 200:
+    clean_query = f"{query} ITMO".strip()
+
+    params = {
+        "access_key": SEARCH_API_KEY,
+        "query": clean_query,
+        "num": 5,
+        "gl": "ru",
+        "hl": "ru",
+        "device": "desktop",
+        "auto_location": 0
+    }
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                    SEARCH_URL,
+                    params=params,
+                    timeout=aiohttp.ClientTimeout(total=5)
+            ) as resp:
+
+                logger.info(f"Request URL: {resp.url}")
+
+                if resp.status != 200:
+                    logger.error(f"HTTP Error {resp.status}")
+                    return []
+
                 data = await resp.json()
-                items = data.get("items", [])
-                links = [it.get("link") for it in items if "link" in it]
-                logger.info(f"search_google found {len(links)} links: {links}")
-                return links[:3]
-            else:
-                txt = await resp.text()
-                logger.warning(f"search_google error {resp.status}: {txt}")
-    return []
+                logger.debug(f"Raw API response: {data}")
+
+                # Проверка структуры ответа
+                if not isinstance(data.get("organic_results"), list):
+                    logger.error("Invalid organic_results format")
+                    return []
+
+                valid_urls = []
+                for result in data.get("organic_results", []):
+                    if not isinstance(result, dict):
+                        continue
+
+                    url = result.get("url")
+                    if url and isinstance(url, str):
+                        valid_urls.append(url)
+                        if len(valid_urls) >= 3:
+                            break
+
+                logger.info(f"Found {len(valid_urls)} valid URLs: {valid_urls}")
+                return valid_urls
+
+    except Exception as e:
+        logger.exception(f"Critical error: {str(e)}")
+        return []
 
 
 async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:
     try:
         logger.info(f"Начинаю загрузку страницы: {link}")
         async with session.get(link) as resp:
-            # Таймаут 1 секунда на всю операцию
+
             content = await asyncio.wait_for(resp.text(), timeout=1.0)
             text = BeautifulSoup(content, "html.parser").get_text()
             logger.info(f"Страница {link} загружена, размер: {len(text)} символов")
@@ -75,7 +114,7 @@ async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:
 async def fetch_page_texts(links: List[str]) -> List[str]:
     logger.info(f"Начинаю загрузку списка ссылок: {links}")
     async with aiohttp.ClientSession() as session:
-        # Создаем задачи как объекты Task
+
         tasks = [
             asyncio.create_task(
                 asyncio.wait_for(fetch_page_content(session, link), timeout=1.0)
@@ -94,7 +133,6 @@ async def fetch_page_texts(links: List[str]) -> List[str]:
             except Exception as e:
                 logger.error(f"Ошибка в задаче: {type(e).__name__}")
 
-        # Отменяем оставшиеся задачи
         for task in tasks:
             if not task.done():
                 task.cancel()
@@ -105,6 +143,18 @@ async def fetch_page_texts(links: List[str]) -> List[str]:
 
         logger.info(f"Успешно загружено {len(results)} страниц")
         return results[:3]
+
+
+def truncate_text(text: str, start: int = 500, end: int = 1000) -> str:
+    """
+    Обрезает текст с start по end символы, если текст достаточно длинный.
+    Если текст короче start, возвращает пустую строку.
+    Если текст короче end, возвращает текст с start до конца.
+    """
+    if len(text) < start:
+        return ""
+
+    return text[start:min(end, len(text))]
 
 
 async def compress_pages_for_itmo(raw_texts: List[str]) -> str:
@@ -138,24 +188,18 @@ async def compress_pages_for_itmo(raw_texts: List[str]) -> str:
     summaries = []
     for idx, txt in enumerate(raw_texts):
         text_no_html = BeautifulSoup(txt, "html.parser").get_text()
-
-        # 2. Удаляем все whitespace-символы
         text_one_space = re.sub(r"\s+", " ", text_no_html).strip()
 
-        # 3. Оставляем только первые 4000 символов (нужна скорость)
-        text_truncated = text_one_space[:200]
+        text_truncated = truncate_text(text_one_space, 500, 2000)
 
-        # 4. Готовим запрос для модели
         user_msg = {"role": "user", "text": text_truncated}
         messages = [system_msg, assistant_msg, user_msg]
 
-        # Вызываем вашу LLM/модель
         summary = await run_model(messages)
 
         logger.info(f"Page #{idx} summary (first 50 chars): {summary[:50]}...")
         summaries.append(summary.strip())
 
-    # Объединяем сжатую информацию со всех страниц
     big_context = "\n\n".join(summaries)
     return big_context
 
@@ -168,11 +212,12 @@ async def ask_which_variant(user_query: str, big_context: str) -> Optional[int]:
     system_msg = {
         "role": "system",
         "text": (
-            "У тебя есть вопрос с вариантами ответа и ответ на него. Твоя задача определить правильный вариант ответа, опираясь на ответ модели."
+            "У тебя есть вопрос с вариантами ответа и ответ на него Твоя задача определить правильный вариант ответа, опираясь на ответ модели."
+            "Если варианты ответы отсутсвуют напиши null. В противоположном случае ты обязан выбрать один из вариантов ответа."
             "Если предоставленной информации недостаточно используй свои знания"
             "В первой строке напиши номер правильного варианта (1..N). "
             "Если ответ отсутствует опирайся на свои знаения"
-            "Ни в коем случае не пиши ничего кроме варианта ответа или 'null', если он отсутсвует.\n\n"
+            "Ни в коем случае не пиши ничего кроме варианта ответа или 'null'.\n\n"
             "Примеры:\n"
             "Вопрос: Какая планета является самой большой в Солнечной системе?\n1. Земля\n2. Марс\n3. Юпитер\n4. Сатурн\nКонтекст: Юпитер — самая большая планета в нашей Солнечной системе, обладающая самой большой массой и диаметром.\nОтвет: 3\n\n"
         )
@@ -216,5 +261,3 @@ async def ask_explanation(user_query: str, big_context: str) -> str:
     messages = [sys_msg, user_msg]
     explanation = await run_model(messages)
     return explanation.strip()
-
-

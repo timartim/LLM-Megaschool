@@ -10,11 +10,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from search_itmo.services import (
     transform_query_for_google,
-    search_google,
     fetch_page_texts,
     compress_pages_for_itmo,
     ask_which_variant,
-    ask_explanation,
+    ask_explanation, search_serpstack,
 )
 
 app = FastAPI()
@@ -70,12 +69,12 @@ async def predict(body: PredictionRequest):
         tasks = [
             transform_query_for_google(body.query),
         ]
-        refined_query = await asyncio.gather(*tasks)
+        refined_query, = await asyncio.gather(*tasks)
 
         await logger.info(f"Refined query: {refined_query}")
 
-        # Шаг 2: Идём в Google
-        links = await search_google(refined_query)
+        # Шаг 2: Идём в Google (через другое api, потому что у этого ограничений больше)
+        links = await search_serpstack(refined_query)
         await logger.info(f"Got links: {links}")
 
         # Шаг 3: Скачиваем тексты, сжимаем до нужных частей

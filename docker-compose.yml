@@ -11,6 +11,14 @@ services:
       - TZ=UTC
     volumes:
       - ./logs:/app/logs
+    deploy:
+      resources:
+        limits:
+          cpus: '5.0'
+          memory: 6G
+        reservations:
+          cpus: '3.0'
+          memory: 4G
     # Если нужно GPU
     # runtime: nvidia
     # deploy:
