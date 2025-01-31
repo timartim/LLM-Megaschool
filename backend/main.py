@@ -100,7 +100,7 @@ async def predict(body: PredictionRequest):
         resp = PredictionResponse(
             id=body.id,
             answer=final_answer,
-            reasoning=explanation,
+            reasoning=explanation + "\n Ответ сгенерирован yandexgpt-32k/rc",
             sources=sources
         )
         await logger.info(f"Final response: {resp}")
