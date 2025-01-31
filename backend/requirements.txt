@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+gunicorn
+yandex_cloud_ml_sdk
+aiohttp
+asyncio
+aiologger
+pip-chill
+beautifulsoup4
+pydantic
+python-dotenv

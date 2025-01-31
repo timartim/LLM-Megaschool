@@ -1,0 +1,913 @@
+2025-01-30 21:34:58 | INFO | Incoming request: GET http://localhost:8080/docs
+Request body: 
+2025-01-30 21:34:58 | INFO | Request completed: GET http://localhost:8080/docs
+Status: 200
+Response body: 
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+    <link rel="shortcut icon" href="https://fastapi.tiangolo.com/img/favicon.png">
+    <title>FastAPI - Swagger UI</title>
+    </head>
+    <body>
+    <div id="swagger-ui">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+    <!-- `SwaggerUIBundle` is now available on the page -->
+    <script>
+    const ui = SwaggerUIBundle({
+        url: '/openapi.json',
+    "dom_id": "#swagger-ui",
+"layout": "BaseLayout",
+"deepLinking": true,
+"showExtensions": true,
+"showCommonExtensions": true,
+oauth2RedirectUrl: window.location.origin + '/docs/oauth2-redirect',
+    presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIBundle.SwaggerUIStandalonePreset
+        ],
+    })
+    </script>
+    </body>
+    </html>
+    
+Duration: 0.006s
+2025-01-30 21:34:58 | INFO | Incoming request: GET http://localhost:8080/openapi.json
+Request body: 
+2025-01-30 21:34:58 | INFO | Request completed: GET http://localhost:8080/openapi.json
+Status: 200
+Response body: {"openapi":"3.1.0","info":{"title":"FastAPI","version":"0.1.0"},"paths":{"/api/request":{"post":{"summary":"Predict","operationId":"predict_api_request_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PredictionRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PredictionResponse"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}}},"components":{"schemas":{"HTTPValidationError":{"properties":{"detail":{"items":{"$ref":"#/components/schemas/ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"},"PredictionRequest":{"properties":{"id":{"type":"integer","title":"Id"},"query":{"type":"string","title":"Query"}},"type":"object","required":["id","query"],"title":"PredictionRequest"},"PredictionResponse":{"properties":{"id":{"type":"integer","title":"Id"},"answer":{"type":"integer","title":"Answer"},"reasoning":{"type":"string","title":"Reasoning"},"sources":{"items":{"type":"string","maxLength":2083,"minLength":1,"format":"uri"},"type":"array","title":"Sources"}},"type":"object","required":["id","answer","reasoning","sources"],"title":"PredictionResponse"},"ValidationError":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"}}}}
+Duration: 0.006s
+2025-01-30 21:46:54 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 21:46:54 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 405
+Response body: {"detail":"Method Not Allowed"}
+Duration: 0.006s
+2025-01-30 21:49:19 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 21:49:19 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 400
+Response body: Disallowed CORS origin
+Duration: 0.006s
+2025-01-30 21:49:36 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 21:49:36 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.009s
+2025-01-30 21:49:36 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"123","id":1}
+2025-01-30 21:49:36 | INFO | Processing prediction request with id: 1
+2025-01-30 21:49:37 | ERROR | Internal error processing request 1: 'Alternative' object has no attribute 'strip'
+2025-01-30 21:49:37 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 0.718s
+2025-01-30 21:57:43 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":2}
+2025-01-30 21:57:43 | INFO | Processing prediction request with id: 2
+2025-01-30 21:57:44 | ERROR | Internal error processing request 2: 'Alternative' object has no attribute 'strip'
+2025-01-30 21:57:44 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 0.832s
+2025-01-30 22:00:09 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 22:00:09 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.004s
+2025-01-30 22:00:09 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":3}
+2025-01-30 22:00:09 | INFO | Processing prediction request with id: 3
+2025-01-30 22:00:10 | ERROR | Internal error processing request 3: object NoneType can't be used in 'await' expression
+2025-01-30 22:00:10 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 0.559s
+2025-01-30 22:02:44 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":1}
+2025-01-30 22:02:44 | INFO | Processing prediction request with id: 1
+2025-01-30 22:02:45 | ERROR | Internal error processing request 1: 'NoneType' object has no attribute 'strip'
+2025-01-30 22:02:45 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 1.171s
+2025-01-30 22:03:25 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":2}
+2025-01-30 22:03:25 | INFO | Processing prediction request with id: 2
+2025-01-30 22:03:32 | ERROR | Validation error for request 2: 1 validation error for PredictionResponse
+answer
+  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.10/v/int_type
+2025-01-30 22:03:32 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 400
+Response body: {"detail":"1 validation error for PredictionResponse\nanswer\n  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.10/v/int_type"}
+Duration: 7.724s
+2025-01-30 22:10:57 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 22:10:57 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.004s
+2025-01-30 22:10:57 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":3}
+2025-01-30 22:10:57 | INFO | Processing prediction request with id: 3
+2025-01-30 22:11:01 | ERROR | Validation error for request 3: 1 validation error for PredictionResponse
+answer
+  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.10/v/int_type
+2025-01-30 22:11:01 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 400
+Response body: {"detail":"1 validation error for PredictionResponse\nanswer\n  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.10/v/int_type"}
+Duration: 3.988s
+2025-01-30 22:19:05 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":4}
+2025-01-30 22:19:05 | INFO | Processing prediction request with id: 4
+2025-01-30 22:19:10 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":4,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 5.010s
+2025-01-30 22:19:53 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":1}
+2025-01-30 22:19:53 | INFO | Processing prediction request with id: 1
+2025-01-30 22:19:57 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":1,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 4.504s
+2025-01-30 22:21:52 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 22:21:52 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.003s
+2025-01-30 22:21:52 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":1}
+2025-01-30 22:21:52 | INFO | Processing prediction request with id: 1
+2025-01-30 22:21:57 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":1,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 5.673s
+2025-01-30 22:28:40 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":2}
+2025-01-30 22:28:40 | INFO | Processing prediction request with id: 2
+2025-01-30 22:28:45 | ERROR | Internal error processing request 2: object NoneType can't be used in 'await' expression
+2025-01-30 22:28:45 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 5.554s
+2025-01-30 22:29:56 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":3}
+2025-01-30 22:29:56 | INFO | Processing prediction request with id: 3
+2025-01-30 22:30:00 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":3,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 4.587s
+2025-01-30 22:31:09 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":4}
+2025-01-30 22:31:09 | INFO | Processing prediction request with id: 4
+2025-01-30 22:31:13 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":4,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 4.814s
+2025-01-30 22:32:44 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 22:32:44 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.004s
+2025-01-30 22:32:44 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":5}
+2025-01-30 22:32:44 | INFO | Processing prediction request with id: 5
+2025-01-30 22:32:49 | ERROR | Internal error processing request 5: object NoneType can't be used in 'await' expression
+2025-01-30 22:32:49 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 4.696s
+2025-01-30 22:33:13 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":6}
+2025-01-30 22:33:13 | INFO | Processing prediction request with id: 6
+2025-01-30 22:33:17 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":6,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 4.367s
+2025-01-30 22:35:00 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":7}
+2025-01-30 22:35:00 | INFO | Processing prediction request with id: 7
+2025-01-30 22:35:05 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":7,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 4.774s
+2025-01-30 22:55:48 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 22:55:48 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.005s
+2025-01-30 22:55:48 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":8}
+2025-01-30 22:55:48 | INFO | Processing prediction request with id: 8
+2025-01-30 22:55:54 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":8,"answer":null,"reasoning":"ИТМО (Университет ИТМО) — национальный исследовательский университет, расположенный в Санкт-Петербурге. Он занимает высокие позиции в международных и российских рейтингах вузов, особенно в области компьютерных наук, искусственного интеллекта, оптики и автоматизации.","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 5.743s
+2025-01-30 22:59:27 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":9}
+2025-01-30 22:59:27 | INFO | Processing prediction request with id: 9
+2025-01-30 22:59:32 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":9,"answer":null,"reasoning":"ИТМО (Университет ИТМО) — национальный исследовательский университет, расположенный в Санкт-Петербурге, Россия.","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 4.991s
+2025-01-30 23:00:00 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":1}
+2025-01-30 23:00:00 | INFO | Processing prediction request with id: 1
+2025-01-30 23:00:05 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":1,"answer":null,"reasoning":"ИТМО (Университет ИТМО) — национальный исследовательский университет, расположенный в Санкт-Петербурге. Он занимает высокие места в международных и российских рейтингах по компьютерным наукам, искусственному интеллекту, автоматизации и управлению, оптике и другим направлениям.","sources":["https://itmo.ru/","https://en.itmo.ru/","https://en.wikipedia.org/wiki/ITMO_University"]}
+Duration: 4.497s
+2025-01-30 23:00:49 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":2}
+2025-01-30 23:00:49 | INFO | Processing prediction request with id: 2
+2025-01-30 23:00:55 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":2,"answer":null,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 5.143s
+2025-01-30 23:10:31 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 23:10:31 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.010s
+2025-01-30 23:10:31 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":1}
+2025-01-30 23:10:31 | INFO | Processing prediction request with id: 1
+2025-01-30 23:10:34 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":1,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 3.050s
+2025-01-30 23:10:45 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":2}
+2025-01-30 23:10:45 | INFO | Processing prediction request with id: 2
+2025-01-30 23:10:47 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":2,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 2.666s
+2025-01-30 23:30:37 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 23:30:37 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.005s
+2025-01-30 23:30:37 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":3}
+2025-01-30 23:30:37 | INFO | Processing prediction request with id: 3
+2025-01-30 23:30:39 | INFO | Refined google query: В каком рейтинге в 2021 году ИТМО впервые вошёл в топ-400 мировых университетов? ARWU, Times Higher Education, QS World University Rankings, U.S. News & World Report Best Global Universities
+2025-01-30 23:30:39 | INFO | Found links: ['https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E', 'https://polpred.com/news?hei=42937&searchtext=%22Academic+Ranking+of+World+Universities%22+%7C+ARWU+%7C+%22Shanghai+Ranking%22+%7C+%22%D8%E0%ED%F5%E0%E9%F1%EA%E8%E9+%F0%E5%E9%F2%E8%ED%E3%22', 'https://ru.wikipedia.org/wiki/%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%B8%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9_%D1%8F%D0%B4%D0%B5%D1%80%D0%BD%D1%8B%D0%B9_%D1%83%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%C2%AB%D0%9C%D0%98%D0%A4%D0%98%C2%BB']
+2025-01-30 23:30:43 | ERROR | Internal error processing request 3: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=1aeece78-d3b773a7-a6be86f3-d6d13774&request_id=8899cfd4-4250-482a-b5b0-65c8c6d00a37&client_request_id=26299f1f-0e8a-4a08-a874-b560f42ecee6&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 8192, got 19848"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {grpc_message:"Error in session internal_id=1aeece78-d3b773a7-a6be86f3-d6d13774&request_id=8899cfd4-4250-482a-b5b0-65c8c6d00a37&client_request_id=26299f1f-0e8a-4a08-a874-b560f42ecee6&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 8192, got 19848", grpc_status:3, created_time:"2025-01-30T23:30:43.493544879+00:00"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "26299f1f-0e8a-4a08-a874-b560f42ecee6"
+>
+2025-01-30 23:30:43 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 6.308s
+2025-01-30 23:34:08 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":4}
+2025-01-30 23:34:08 | INFO | Processing prediction request with id: 4
+2025-01-30 23:34:10 | INFO | Refined google query: В каком рейтинге в 2021 году ИТМО впервые вошёл в топ-400 мировых университетов? ARWU, Times Higher Education, QS World University Rankings, U.S. News & World Report Best Global Universities
+2025-01-30 23:34:10 | INFO | Found links: ['https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E', 'https://polpred.com/news?hei=42937&searchtext=%22Academic+Ranking+of+World+Universities%22+%7C+ARWU+%7C+%22Shanghai+Ranking%22+%7C+%22%D8%E0%ED%F5%E0%E9%F1%EA%E8%E9+%F0%E5%E9%F2%E8%ED%E3%22', 'https://ru.wikipedia.org/wiki/%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%B8%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9_%D1%8F%D0%B4%D0%B5%D1%80%D0%BD%D1%8B%D0%B9_%D1%83%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%C2%AB%D0%9C%D0%98%D0%A4%D0%98%C2%BB']
+2025-01-30 23:34:14 | ERROR | Internal error processing request 4: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=6f70405b-af5d8d15-452bf7db-7a2652&request_id=311bdb4d-2239-42ab-8913-807381cea7dd&client_request_id=dbfe79f2-bafd-4bfa-9807-b1dbba1c326a&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 8192, got 19848"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {created_time:"2025-01-30T23:34:14.639403629+00:00", grpc_status:3, grpc_message:"Error in session internal_id=6f70405b-af5d8d15-452bf7db-7a2652&request_id=311bdb4d-2239-42ab-8913-807381cea7dd&client_request_id=dbfe79f2-bafd-4bfa-9807-b1dbba1c326a&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 8192, got 19848"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "dbfe79f2-bafd-4bfa-9807-b1dbba1c326a"
+>
+2025-01-30 23:34:14 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 5.768s
+2025-01-30 23:36:09 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":5}
+2025-01-30 23:36:09 | INFO | Processing prediction request with id: 5
+2025-01-30 23:36:10 | INFO | Refined google query: В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов? ARWU, Times Higher Education, QS World University Rankings или U.S. News & World Report Best Global Universities.
+2025-01-30 23:36:11 | INFO | Found links: ['https://ru.wikipedia.org/wiki/%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%B8%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9_%D1%8F%D0%B4%D0%B5%D1%80%D0%BD%D1%8B%D0%B9_%D1%83%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%C2%AB%D0%9C%D0%98%D0%A4%D0%98%C2%BB', 'https://polpred.com/news?hei=42937&searchtext=%22Academic+Ranking+of+World+Universities%22+%7C+ARWU+%7C+%22Shanghai+Ranking%22+%7C+%22%D8%E0%ED%F5%E0%E9%F1%EA%E8%E9+%F0%E5%E9%F2%E8%ED%E3%22']
+2025-01-30 23:36:14 | ERROR | Internal error processing request 5: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=80e0ff17-63ab94c4-8fca4cdb-214b6abf&request_id=031285a3-90f1-4185-8c18-7532c407a3d6&client_request_id=8641599e-24fe-4b5c-b2ef-c5099d4ea140&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 8192, got 19860"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {created_time:"2025-01-30T23:36:13.847539504+00:00", grpc_status:3, grpc_message:"Error in session internal_id=80e0ff17-63ab94c4-8fca4cdb-214b6abf&request_id=031285a3-90f1-4185-8c18-7532c407a3d6&client_request_id=8641599e-24fe-4b5c-b2ef-c5099d4ea140&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 8192, got 19860"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "8641599e-24fe-4b5c-b2ef-c5099d4ea140"
+>
+2025-01-30 23:36:14 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 5.324s
+2025-01-30 23:38:30 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":6}
+2025-01-30 23:38:30 | INFO | Processing prediction request with id: 6
+2025-01-30 23:38:33 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":6,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 3.089s
+2025-01-30 23:39:13 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":7}
+2025-01-30 23:39:13 | INFO | Processing prediction request with id: 7
+2025-01-30 23:39:16 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":7,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 3.131s
+2025-01-30 23:40:36 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":8}
+2025-01-30 23:40:36 | INFO | Processing prediction request with id: 8
+2025-01-30 23:40:39 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":8,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 2.887s
+2025-01-30 23:46:16 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 23:46:16 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.004s
+2025-01-30 23:46:16 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":9}
+2025-01-30 23:46:16 | INFO | Processing prediction request with id: 9 and query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-30 23:46:16 | INFO | links found: []
+2025-01-30 23:46:16 | INFO | Fetched 0 texts
+2025-01-30 23:46:19 | INFO | Final response: id=9 answer=3 reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[]
+2025-01-30 23:46:19 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":9,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 3.318s
+2025-01-30 23:49:25 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":10}
+2025-01-30 23:49:25 | INFO | Processing prediction request with id: 10 and query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-30 23:49:25 | INFO | links found: []
+2025-01-30 23:49:25 | INFO | Fetched 0 texts
+2025-01-30 23:49:38 | INFO | Final response: id=10 answer=3 reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[]
+2025-01-30 23:49:38 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":10,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 13.130s
+2025-01-30 23:50:20 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":11}
+2025-01-30 23:50:20 | INFO | Processing prediction request with id: 11 and query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-30 23:50:20 | INFO | links found: []
+2025-01-30 23:50:20 | INFO | Fetched 0 texts
+2025-01-30 23:50:23 | INFO | Final response: id=11 answer=3 reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[]
+2025-01-30 23:50:23 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":11,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 3.610s
+2025-01-30 23:54:32 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":12}
+2025-01-30 23:54:32 | INFO | Processing prediction request with id: 12 and query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-30 23:54:33 | INFO | links found: []
+2025-01-30 23:54:33 | INFO | Fetched 0 texts
+2025-01-30 23:54:41 | INFO | Final response: id=12 answer=3 reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[]
+2025-01-30 23:54:41 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":12,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":[]}
+Duration: 8.548s
+2025-01-30 23:56:54 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-30 23:56:54 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.003s
+2025-01-30 23:56:54 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":13}
+2025-01-30 23:56:54 | INFO | Processing prediction request with id: 13 and query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-30 23:56:57 | INFO | Refined Google query: 'В каком рейтинге ИТМО вошёл в топ-400 мировых университетов в 2021 году?'
+2025-01-30 23:56:58 | INFO | links found: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10169/']
+2025-01-30 23:56:59 | INFO | Fetched 3 texts
+2025-01-30 23:57:03 | INFO | Final response: id=13 answer=3 reasoning='Университет ИТМО впервые вошёл в топ-400 лучших вузов мира по версии QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10169/')]
+2025-01-30 23:57:03 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":13,"answer":3,"reasoning":"Университет ИТМО впервые вошёл в топ-400 лучших вузов мира по версии QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10169/"]}
+Duration: 8.466s
+2025-01-31 00:05:09 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":14}
+2025-01-31 00:05:09 | INFO | Processing prediction request with id: 14 and query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 00:05:12 | INFO | Refined Google query: 'Университет ИТМО год включения в национальные исследовательские университеты России'
+2025-01-31 00:05:13 | INFO | links found: ['https://itmo.ru/', 'https://int.itmo.ru/ru/masters_programs', 'https://itmo.ru/ru/page/207/ob_universitete.htm']
+2025-01-31 00:05:17 | INFO | Fetched 3 texts
+2025-01-31 00:05:20 | INFO | Final response: id=14 answer=None reasoning='Университет ИТМО был включён в число Национальных исследовательских университетов России в null. Информация об этом содержится в тексте, однако конкретный год не указан.' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://int.itmo.ru/ru/masters_programs'), HttpUrl('https://itmo.ru/ru/page/207/ob_universitete.htm')]
+2025-01-31 00:05:20 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":14,"answer":null,"reasoning":"Университет ИТМО был включён в число Национальных исследовательских университетов России в null. Информация об этом содержится в тексте, однако конкретный год не указан.","sources":["https://itmo.ru/","https://int.itmo.ru/ru/masters_programs","https://itmo.ru/ru/page/207/ob_universitete.htm"]}
+Duration: 10.715s
+2025-01-31 00:19:54 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 00:19:54 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.004s
+2025-01-31 00:19:54 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":15}
+2025-01-31 00:19:54 | INFO | Processing prediction request with id: 15 and query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 00:19:56 | INFO | Refined Google query: 'Когда университет ИТМО включили в число национальных исследовательских университетов России?'
+2025-01-31 00:19:57 | INFO | links found: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm']
+2025-01-31 00:19:58 | INFO | Fetched 3 texts
+2025-01-31 00:20:01 | INFO | Final response: id=15 answer=None reasoning='Пояснение: Университет ИТМО был включён в число Национальных исследовательских университетов России в 2009 году.' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://academia.interfax.ru/ru/news/articles/5044/'), HttpUrl('https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm')]
+2025-01-31 00:20:01 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":15,"answer":null,"reasoning":"Пояснение: Университет ИТМО был включён в число Национальных исследовательских университетов России в 2009 году.","sources":["https://itmo.ru/","https://academia.interfax.ru/ru/news/articles/5044/","https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm"]}
+Duration: 6.654s
+2025-01-31 00:32:42 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 00:32:42 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.003s
+2025-01-31 00:32:42 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":16}
+2025-01-31 00:32:42 | INFO | Processing prediction request with id: 16, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 00:32:43 | INFO | Refined query: В каком году университет ИТМО стал национальным исследовательским университетом России?, is_multi=False
+2025-01-31 00:32:43 | INFO | Got links: ['https://itmo.ru/', 'https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm']
+2025-01-31 00:33:02 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":16}
+2025-01-31 00:33:02 | INFO | Processing prediction request with id: 16, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 00:33:03 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=False
+2025-01-31 00:33:04 | INFO | Got links: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm']
+2025-01-31 00:34:42 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":16}
+2025-01-31 00:34:42 | INFO | Processing prediction request with id: 16, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 00:34:43 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=False
+2025-01-31 00:34:44 | INFO | Got links: ['https://itmo.ru/', 'https://edu.itmo.ru/files/697', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm']
+2025-01-31 00:34:54 | ERROR | Internal error: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=fa423fe2-3bd4900c-ac6a36a4-b87d12b9&request_id=68e5f060-30f1-45b3-811e-57276c3f3932&client_request_id=e1b45c6b-b02b-4f99-9537-1bcd4d8c38e3&folder_id=b1ge70f9o6ipck99s5m4: empty message text"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {grpc_message:"Error in session internal_id=fa423fe2-3bd4900c-ac6a36a4-b87d12b9&request_id=68e5f060-30f1-45b3-811e-57276c3f3932&client_request_id=e1b45c6b-b02b-4f99-9537-1bcd4d8c38e3&folder_id=b1ge70f9o6ipck99s5m4: empty message text", grpc_status:3, created_time:"2025-01-31T00:34:54.013587175+00:00"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "e1b45c6b-b02b-4f99-9537-1bcd4d8c38e3"
+>
+2025-01-31 00:34:54 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 11.911s
+2025-01-31 00:36:43 | INFO | Incoming request: GET http://localhost:8080/api/request
+Request body: 
+2025-01-31 00:36:43 | INFO | Request completed: GET http://localhost:8080/api/request
+Status: 405
+Response body: {"detail":"Method Not Allowed"}
+Duration: 0.011s
+2025-01-31 00:36:43 | INFO | Incoming request: GET http://localhost:8080/favicon.ico
+Request body: 
+2025-01-31 00:36:43 | INFO | Request completed: GET http://localhost:8080/favicon.ico
+Status: 404
+Response body: {"detail":"Not Found"}
+Duration: 0.002s
+2025-01-31 00:36:57 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":17}
+2025-01-31 00:36:57 | INFO | Processing prediction request with id: 17, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 00:36:58 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=False
+2025-01-31 00:36:58 | INFO | Got links: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm']
+2025-01-31 00:37:36 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":" В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":3}
+2025-01-31 00:37:36 | INFO | Processing prediction request with id: 3, query=' В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-31 00:37:40 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 00:37:40 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 00:38:26 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":3}
+2025-01-31 00:38:26 | INFO | Processing prediction request with id: 3, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 00:38:28 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 00:38:28 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10169/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10389/']
+2025-01-31 00:42:51 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 00:42:51 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.012s
+2025-01-31 00:42:51 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":1}
+2025-01-31 00:42:51 | INFO | Processing prediction request with id: 1, query='ИТМО'
+2025-01-31 00:42:51 | ERROR | Internal error: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "invalid model_uri"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {grpc_message:"invalid model_uri", grpc_status:3, created_time:"2025-01-31T00:42:51.550397257+00:00"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "47d2c08f-4d32-44b8-aa23-4dcbfdc59811"
+>
+2025-01-31 00:42:51 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 0.343s
+2025-01-31 00:44:18 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":2}
+2025-01-31 00:44:18 | INFO | Processing prediction request with id: 2, query='ИТМО'
+2025-01-31 00:44:19 | INFO | Refined query: Университет ИТМО информация, is_multi=False
+2025-01-31 00:44:19 | INFO | Got links: ['https://itmo.ru/ru/page/207/ob_universitete.htm', 'https://abit.itmo.ru/', 'https://itmo.ru/']
+2025-01-31 00:48:27 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":2}
+2025-01-31 00:48:27 | INFO | Processing prediction request with id: 2, query='ИТМО'
+2025-01-31 00:48:28 | INFO | Refined query: Университет ИТМО информация, is_multi=False
+2025-01-31 00:48:28 | INFO | Got links: ['https://itmo.ru/ru/page/207/ob_universitete.htm', 'https://abit.itmo.ru/', 'https://itmo.ru/']
+2025-01-31 00:48:30 | ERROR | Internal error: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=cfda19bc-742db9b0-8f3a5fc9-697b0c4&request_id=364ddd9f-1b98-4381-ba09-09618747bf05&client_request_id=c4a5bf7d-228d-40f4-9197-7a7ead6569ad&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 32768, got 216057"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {grpc_message:"Error in session internal_id=cfda19bc-742db9b0-8f3a5fc9-697b0c4&request_id=364ddd9f-1b98-4381-ba09-09618747bf05&client_request_id=c4a5bf7d-228d-40f4-9197-7a7ead6569ad&folder_id=b1ge70f9o6ipck99s5m4: number of input tokens must be no more than 32768, got 216057", grpc_status:3, created_time:"2025-01-31T00:48:30.043817386+00:00"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "c4a5bf7d-228d-40f4-9197-7a7ead6569ad"
+>
+2025-01-31 00:48:30 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 2.791s
+2025-01-31 00:51:58 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":3}
+2025-01-31 00:51:58 | INFO | Processing prediction request with id: 3, query='ИТМО'
+2025-01-31 00:51:59 | INFO | Refined query: Университет ИТМО информация, is_multi=False
+2025-01-31 00:52:00 | INFO | Got links: ['https://itmo.ru/ru/page/207/ob_universitete.htm', 'https://abit.itmo.ru/', 'https://itmo.ru/']
+2025-01-31 00:52:52 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 00:52:52 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.005s
+2025-01-31 00:52:52 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":3}
+2025-01-31 00:52:52 | INFO | Processing prediction request with id: 3, query='ИТМО'
+2025-01-31 00:52:53 | INFO | Refined query: Университет ИТМО информация, is_multi=False
+2025-01-31 00:52:54 | INFO | Got links: ['https://itmo.ru/ru/page/207/ob_universitete.htm', 'https://abit.itmo.ru/', 'https://itmo.ru/']
+2025-01-31 00:52:54 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":3}
+2025-01-31 00:52:54 | INFO | Processing prediction request with id: 3, query='ИТМО'
+2025-01-31 00:52:54 | INFO | Refined query: Университет ИТМО информация, is_multi=False
+2025-01-31 00:53:11 | INFO | Final response: id=3 answer=None reasoning='ИТМО — это **Национальный исследовательский университет ИТМО**, который является федеральным государственным автономным образовательным учреждением высшего образования.\n\nУниверситет имеет сложную структуру, которая включает в себя мегафакультеты, факультеты, институты, научно-исследовательские и административные подразделения.\n\nИТМО занимает высокие места в различных рейтингах вузов, включая:\n* 7 место в рейтинге Forbes (2022);\n* 2 место в рейтинге SuperJob по уровню зарплат выпускников (2023);\n* 5 место в мониторинге качества приёма НИУ ВШЭ (2022).\n\nКроме того, ИТМО является лидером программы «Приоритет-2030» и входит в ТОП-100 вузов мира по компьютерным наукам, автоматизации и управлению, искусственному интеллекту.' sources=[HttpUrl('https://itmo.ru/ru/page/207/ob_universitete.htm'), HttpUrl('https://abit.itmo.ru/'), HttpUrl('https://itmo.ru/')]
+2025-01-31 00:53:11 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":3,"answer":null,"reasoning":"ИТМО — это **Национальный исследовательский университет ИТМО**, который является федеральным государственным автономным образовательным учреждением высшего образования.\n\nУниверситет имеет сложную структуру, которая включает в себя мегафакультеты, факультеты, институты, научно-исследовательские и административные подразделения.\n\nИТМО занимает высокие места в различных рейтингах вузов, включая:\n* 7 место в рейтинге Forbes (2022);\n* 2 место в рейтинге SuperJob по уровню зарплат выпускников (2023);\n* 5 место в мониторинге качества приёма НИУ ВШЭ (2022).\n\nКроме того, ИТМО является лидером программы «Приоритет-2030» и входит в ТОП-100 вузов мира по компьютерным наукам, автоматизации и управлению, искусственному интеллекту.","sources":["https://itmo.ru/ru/page/207/ob_universitete.htm","https://abit.itmo.ru/","https://itmo.ru/"]}
+Duration: 19.076s
+2025-01-31 00:53:12 | INFO | Got links: ['https://itmo.ru/ru/page/207/ob_universitete.htm', 'https://abit.itmo.ru/', 'https://itmo.ru/']
+2025-01-31 00:53:28 | INFO | Final response: id=3 answer=None reasoning='К сожалению, не совсем понятно, что вы хотите узнать об ИТМО. Пожалуйста, уточните вопрос.\n\nНациональный исследовательский университет ИТМО — это федеральное государственное автономное образовательное учреждение высшего образования. Он имеет сложную структуру, которая включает мегафакультеты, факультеты и институты, научно-исследовательские и административные подразделения. \n\nУниверситет предлагает широкий спектр образовательных программ: от бакалавриата до аспирантуры и дополнительного образования. Среди направлений обучения: информационные технологии, физика, науки о жизни, инженерия, экономика и инновации, междисциплинарные исследования.\n\nИТМО является лидером программы «Приоритет-2030», входит в ТОП-100 лучших вузов мира по компьютерным наукам, автоматизации и управлению, искусственному интеллекту. Это первый неклассический университет, который имеет собственные PhD программы. Также он известен как единственный в мире семикратный победитель международного чемпионата по программированию ICPC.' sources=[HttpUrl('https://itmo.ru/ru/page/207/ob_universitete.htm'), HttpUrl('https://abit.itmo.ru/'), HttpUrl('https://itmo.ru/')]
+2025-01-31 00:53:28 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":3,"answer":null,"reasoning":"К сожалению, не совсем понятно, что вы хотите узнать об ИТМО. Пожалуйста, уточните вопрос.\n\nНациональный исследовательский университет ИТМО — это федеральное государственное автономное образовательное учреждение высшего образования. Он имеет сложную структуру, которая включает мегафакультеты, факультеты и институты, научно-исследовательские и административные подразделения. \n\nУниверситет предлагает широкий спектр образовательных программ: от бакалавриата до аспирантуры и дополнительного образования. Среди направлений обучения: информационные технологии, физика, науки о жизни, инженерия, экономика и инновации, междисциплинарные исследования.\n\nИТМО является лидером программы «Приоритет-2030», входит в ТОП-100 лучших вузов мира по компьютерным наукам, автоматизации и управлению, искусственному интеллекту. Это первый неклассический университет, который имеет собственные PhD программы. Также он известен как единственный в мире семикратный победитель международного чемпионата по программированию ICPC.","sources":["https://itmo.ru/ru/page/207/ob_universitete.htm","https://abit.itmo.ru/","https://itmo.ru/"]}
+Duration: 34.229s
+2025-01-31 00:55:56 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 00:55:56 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.003s
+2025-01-31 00:55:56 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"ИТМО","id":1}
+2025-01-31 00:55:56 | INFO | Processing prediction request with id: 1, query='ИТМО'
+2025-01-31 00:55:58 | INFO | Refined query: Университет ИТМО информация, is_multi=False
+2025-01-31 00:55:58 | INFO | Got links: ['https://itmo.ru/ru/page/207/ob_universitete.htm', 'https://abit.itmo.ru/', 'https://itmo.ru/']
+2025-01-31 00:56:10 | INFO | Final response: id=1 answer=None reasoning='**Университет ИТМО** — это один из ведущих вузов Санкт-Петербурга, который предлагает широкий спектр образовательных программ в области информационных технологий, физики, наук о жизни, инженерии, экономики и инноваций.\n\nИТМО является лидером в сфере образования и науки, что подтверждается его участием в программе «Приоритет-2030» и высокими позициями в международных рейтингах.' sources=[HttpUrl('https://itmo.ru/ru/page/207/ob_universitete.htm'), HttpUrl('https://abit.itmo.ru/'), HttpUrl('https://itmo.ru/')]
+2025-01-31 00:56:10 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":1,"answer":null,"reasoning":"**Университет ИТМО** — это один из ведущих вузов Санкт-Петербурга, который предлагает широкий спектр образовательных программ в области информационных технологий, физики, наук о жизни, инженерии, экономики и инноваций.\n\nИТМО является лидером в сфере образования и науки, что подтверждается его участием в программе «Приоритет-2030» и высокими позициями в международных рейтингах.","sources":["https://itmo.ru/ru/page/207/ob_universitete.htm","https://abit.itmo.ru/","https://itmo.ru/"]}
+Duration: 14.627s
+2025-01-31 00:58:09 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":3}
+2025-01-31 00:58:09 | INFO | Processing prediction request with id: 3, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-31 00:58:12 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 00:58:12 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 00:58:37 | INFO | Final response: id=3 answer=None reasoning='Университет ИТМО впервые вошёл в топ-400 мировых университетов по версии **рейтинга QS World University Rankings.**' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 00:58:37 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":3,"answer":null,"reasoning":"Университет ИТМО впервые вошёл в топ-400 мировых университетов по версии **рейтинга QS World University Rankings.**","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 28.165s
+2025-01-31 00:59:58 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":" В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":4}
+2025-01-31 00:59:58 | INFO | Processing prediction request with id: 4, query=' В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:00:05 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:00:05 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 01:00:13 | INFO | Final response: id=4 answer=None reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 01:00:13 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":4,"answer":null,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 15.342s
+2025-01-31 01:00:55 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:00:56 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:00:56 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:00:56 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:00:56 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:00:56 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:00:56 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:00:56 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:01:00 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:01:00 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:01:00 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:01:00 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:01:00 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:01:00 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:01:00 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10169/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10389/']
+2025-01-31 01:01:01 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:01:02 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:01:02 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10169/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10389/']
+2025-01-31 01:01:02 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10169/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10389/']
+2025-01-31 01:01:02 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 01:01:05 | INFO | Final response: id=5 answer=None reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге **QS World University Rankings**.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10169/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/')]
+2025-01-31 01:01:05 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":null,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге **QS World University Rankings**.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10169/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10389/"]}
+Duration: 9.012s
+2025-01-31 01:01:05 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:01:05 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:01:06 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:01:06 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 01:01:07 | INFO | Final response: id=5 answer=None reasoning='Университет ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10169/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/')]
+2025-01-31 01:01:11 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:01:11 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10169/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10389/']
+2025-01-31 01:01:12 | INFO | Final response: id=5 answer=None reasoning='Университет ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 01:01:15 | INFO | Final response: id=5 answer=None reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10169/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/')]
+2025-01-31 01:01:15 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":null,"reasoning":"Университет ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10169/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10389/"]}
+Duration: 16.959s
+2025-01-31 01:01:15 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":null,"reasoning":"Университет ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 15.280s
+2025-01-31 01:01:15 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":null,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10169/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10389/"]}
+Duration: 15.283s
+2025-01-31 01:01:19 | INFO | Final response: id=5 answer=None reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге **QS World University Rankings**. Это верно, потому что QS World University Rankings — один из авторитетных международных рейтингов.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10169/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/')]
+2025-01-31 01:01:19 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":null,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге **QS World University Rankings**. Это верно, потому что QS World University Rankings — один из авторитетных международных рейтингов.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10169/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10389/"]}
+Duration: 23.103s
+2025-01-31 01:01:20 | INFO | Final response: id=5 answer=None reasoning='Университет ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 01:01:20 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":null,"reasoning":"Университет ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 24.074s
+2025-01-31 01:01:22 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universitie","id":5}
+2025-01-31 01:01:22 | INFO | Processing prediction request with id: 5, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universitie'
+2025-01-31 01:01:24 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=False
+2025-01-31 01:01:24 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10169/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10389/']
+2025-01-31 01:01:29 | INFO | Final response: id=5 answer=None reasoning='Университет ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10169/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/')]
+2025-01-31 01:01:29 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":null,"reasoning":"Университет ИТМО впервые вошёл в топ-400 мировых университетов в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10169/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10389/"]}
+Duration: 7.006s
+2025-01-31 01:02:08 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universit","id":12}
+2025-01-31 01:02:08 | INFO | Processing prediction request with id: 12, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universit'
+2025-01-31 01:02:13 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=True
+2025-01-31 01:02:13 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 01:02:16 | INFO | chosen_variant = 3
+2025-01-31 01:02:17 | INFO | Final response: id=12 answer=3 reasoning='ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 01:02:17 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":12,"answer":3,"reasoning":"ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 9.107s
+2025-01-31 01:04:15 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 01:04:15 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.010s
+2025-01-31 01:04:15 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":13}
+2025-01-31 01:04:15 | INFO | Processing prediction request with id: 13, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 01:04:21 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 01:04:22 | INFO | Got links: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm']
+2025-01-31 01:04:26 | INFO | chosen_variant = 2
+2025-01-31 01:04:28 | INFO | Final response: id=13 answer=2 reasoning='Правильный ответ — 2009 год. Именно в это время Университет ИТМО был включён в число Национальных исследовательских университетов России.' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://academia.interfax.ru/ru/news/articles/5044/'), HttpUrl('https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm')]
+2025-01-31 01:04:28 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":13,"answer":2,"reasoning":"Правильный ответ — 2009 год. Именно в это время Университет ИТМО был включён в число Национальных исследовательских университетов России.","sources":["https://itmo.ru/","https://academia.interfax.ru/ru/news/articles/5044/","https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm"]}
+Duration: 12.598s
+2025-01-31 08:14:30 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 08:14:30 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.007s
+2025-01-31 08:14:30 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":" В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":14}
+2025-01-31 08:14:30 | INFO | Processing prediction request with id: 14, query=' В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:14:31 | ERROR | Internal error: <AioRpcError of RPC that terminated with:
+	code = StatusCode.UNAUTHENTICATED
+	details = "The token has expired 2025-01-31T03:30:49Z. Now 2025-01-31T08:14:31.283682516Z, which is more than PT10M later"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {grpc_message:"The token has expired 2025-01-31T03:30:49Z. Now 2025-01-31T08:14:31.283682516Z, which is more than PT10M later", grpc_status:16, created_time:"2025-01-31T08:14:31.295529553+00:00"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "e28f07c7-db6b-4b0d-9404-4419c5e079a7"
+	auth_provider = IAMTokenAuth
+>
+2025-01-31 08:14:31 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 0.864s
+2025-01-31 08:16:04 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":15}
+2025-01-31 08:16:04 | INFO | Processing prediction request with id: 15, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:16:41 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":15}
+2025-01-31 08:16:41 | INFO | Processing prediction request with id: 15, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:17:20 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":15}
+2025-01-31 08:17:20 | INFO | Processing prediction request with id: 15, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:17:57 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":15}
+2025-01-31 08:17:57 | INFO | Processing prediction request with id: 15, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:18:00 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:18:01 | INFO | Got links: ['https://itmo.ru/', 'https://edu.itmo.ru/files/697', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm']
+2025-01-31 08:18:14 | ERROR | Internal error: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=93c8bd6a-9ffb2856-ea2ea19d-7393917c&request_id=c3886561-8981-4c10-90f4-5b5a96bd1d73&client_request_id=b29ff7e2-97cb-402a-b57a-f164632a4513&folder_id=b1ge70f9o6ipck99s5m4: empty message text"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {created_time:"2025-01-31T08:18:14.271198045+00:00", grpc_status:3, grpc_message:"Error in session internal_id=93c8bd6a-9ffb2856-ea2ea19d-7393917c&request_id=c3886561-8981-4c10-90f4-5b5a96bd1d73&client_request_id=b29ff7e2-97cb-402a-b57a-f164632a4513&folder_id=b1ge70f9o6ipck99s5m4: empty message text"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "b29ff7e2-97cb-402a-b57a-f164632a4513"
+>
+2025-01-31 08:18:14 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 16.674s
+2025-01-31 08:22:43 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":16}
+2025-01-31 08:22:43 | INFO | Processing prediction request with id: 16, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:22:51 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:22:51 | INFO | Got links: ['https://itmo.ru/', 'https://edu.itmo.ru/files/697', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm']
+2025-01-31 08:23:04 | ERROR | Internal error: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=5b3f471c-70cc4dc8-58eef56e-6a32f5e3&request_id=8cc4fd51-5689-4879-aed0-5432daf6339e&client_request_id=4e3f54c3-836b-4499-9149-a31907f6ff1d&folder_id=b1ge70f9o6ipck99s5m4: empty message text"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {created_time:"2025-01-31T08:23:04.650224679+00:00", grpc_status:3, grpc_message:"Error in session internal_id=5b3f471c-70cc4dc8-58eef56e-6a32f5e3&request_id=8cc4fd51-5689-4879-aed0-5432daf6339e&client_request_id=4e3f54c3-836b-4499-9149-a31907f6ff1d&folder_id=b1ge70f9o6ipck99s5m4: empty message text"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "4e3f54c3-836b-4499-9149-a31907f6ff1d"
+>
+2025-01-31 08:23:04 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 21.042s
+2025-01-31 08:27:55 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 08:27:55 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.008s
+2025-01-31 08:27:55 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":17}
+2025-01-31 08:27:55 | INFO | Processing prediction request with id: 17, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:27:59 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:28:00 | INFO | Got links: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm', 'https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm', 'https://edu.itmo.ru/files/697']
+2025-01-31 08:28:22 | INFO | chosen_variant = None
+2025-01-31 08:28:23 | INFO | Final response: id=17 answer=None reasoning='Правильный ответ: 1. 2009 год.\n\nК сожалению, не удалось найти конкретную информацию о годе включения Университета ИТМО в число Национальных исследовательских университетов России.' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://academia.interfax.ru/ru/news/articles/5044/'), HttpUrl('https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm'), HttpUrl('https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E'), HttpUrl('https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm'), HttpUrl('https://edu.itmo.ru/files/697')]
+2025-01-31 08:28:23 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":17,"answer":null,"reasoning":"Правильный ответ: 1. 2009 год.\n\nК сожалению, не удалось найти конкретную информацию о годе включения Университета ИТМО в число Национальных исследовательских университетов России.","sources":["https://itmo.ru/","https://academia.interfax.ru/ru/news/articles/5044/","https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm","https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E","https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm","https://edu.itmo.ru/files/697"]}
+Duration: 28.687s
+2025-01-31 08:29:08 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"import logging import re  import aiohttp import asyncio from bs4 import BeautifulSoup from typing import List, Tuple, Optional  from pydantic import HttpUrl from .config import SEARCH_API_KEY, CX from .model import run_model  ################################# # НАСТРОЙКА ЛОГИРОВАНИЯ ################################# logger = logging.getLogger(\"uvicorn\") logging.basicConfig(     level=logging.INFO,     format=\"%(asctime)s | %(levelname)s | %(message)s\" ) logger = logging.getLogger(__name__)  ################################# # ПАРАМЕТРЫ ################################# SEARCH_URL = \"https://www.googleapis.com/customsearch/v1\" # Допустим, хотим собрать в итоге 3 страницы. Будем просить 6 ссылок у Google # и потом оставлять первые 3 \"непустых\" результата NUM_GOOGLE_LINKS = 6 NUM_VALID_PAGES = 3   ################################# # ПРЕОБРАЗОВАНИЕ ЗАПРОСА ################################# async def transform_query_for_google(original_query: str) -> str:     system_msg = {         \"role\": \"system\",         \"text\": (             \"Преобразуй вопрос пользователя в короткий поисковый запрос (1 строка), \"             \"чтобы Google мог легко найти информацию, связанную с Университетом ИТМО. \"             \"Не добавляй варианты ответа (1., 2. и т.д.).\"         )     }     user_msg = {\"role\": \"user\", \"text\": original_query}     messages = [system_msg, user_msg]     result = await run_model(messages)     return result.strip() or original_query   ################################# # ПРОВЕРКА, ЯВЛЯЕТСЯ ЛИ ЗАПРОС С ВАРИАНТАМИ ################################# async def check_is_multiple_choice(query: str) -> bool:     \"\"\"     Запрашиваем у LLM, есть ли варианты (yes/no).     \"\"\"     system_msg = {         \"role\": \"system\",         \"text\": (             \"Есть ли в отправленном тебе запросе варианты ответа на него? \"             \"ответь строго да или нет и только это.\"         )     }     user_msg = {\"role\": \"user\", \"text\": query}     messages = [system_msg, user_msg]     raw = await run_model(messages)      return (raw.strip().lower() == \"да\")   ################################# # ПОИСК ЧЕРЕЗ GOOGLE (БЕРЁМ БОЛЬШЕ ССЫЛОК) ################################# async def search_google(query: str) -> List[str]:     \"\"\"     Выполняет запрос к Google Custom Search,     возвращая до NUM_GOOGLE_LINKS ссылок (вместо 3).     \"\"\"     logger.info(f\"search_google: query='{query}'\")      params = {         \"key\": SEARCH_API_KEY,         \"cx\": CX,         \"q\": query,         # Берём больше ссылок (6), чтобы было из чего выбрать,         # если часть окажется пустой         \"num\": NUM_GOOGLE_LINKS     }     async with aiohttp.ClientSession() as session:         async with session.get(SEARCH_URL, params=params) as resp:             logger.info(f\"search_google status={resp.status}\")             if resp.status == 200:                 data = await resp.json()                 items = data.get(\"items\", [])                 links = [it.get(\"link\") for it in items if \"link\" in it]                 logger.info(f\"search_google found {len(links)} links: {links}\")                 # Возвращаем все полученные ссылки (до 6)                 return links             else:                 txt = await resp.text()                 logger.warning(f\"search_google error {resp.status}: {txt}\")     return []   ################################# # ЗАГРУЗКА ОДНОЙ СТРАНИЦЫ ################################# async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:     try:         logger.info(f\"Начинаю загрузку страницы: {link}\")         async with session.get(link, timeout=10) as resp:             if resp.status == 200:                 text = await resp.text()                 logger.info(f\"Страница {link} загружена, размер: {len(text)} символов\")                 return text             else:                 logger.warning(f\"Не удалось загрузить {link}, статус {resp.status}\")                 return \"\"     except Exception as e:         logger.error(f\"Ошибка при загрузке {link}: {e}\")         return \"\"   ################################# # ЗАГРУЗКА НЕСКОЛЬКИХ СТРАНИЦ, ПРОПУСК ПУСТЫХ ################################# async def fetch_page_texts(links: List[str]) -> List[str]:     \"\"\"     Запрашивает тексты по всем ссылкам.     Возвращаем только непустые результаты.     Если нужно строго 3 непустых текста, берем первые 3.     \"\"\"     logger.info(f\"Начинаю загрузку списка ссылок: {links}\")      async with aiohttp.ClientSession() as session:         tasks = [fetch_page_content(session, link) for link in links]         all_results = await asyncio.gather(*tasks)      valid_texts = [txt for txt in all_results if txt.strip()]     logger.info(         f\"Успешно получили тексты для {len(all_results)} страниц, \"         f\"из них непустых: {len(valid_texts)}\"     )      # Если нам нужно ровно 3 \"непустых\", берём только первые 3     return valid_texts[:NUM_VALID_PAGES]   ################################# # СЖАТИЕ И ОТБОР СВЕДЕНИЙ ПРО ИТМО ################################# async def compress_pages_for_itmo(raw_texts: List[str]) -> str:     \"\"\"     Для каждого текста:       1. Убираем HTML-теги (BeautifulSoup)       2. Все подряд пробелы -> один пробел (re.sub(r\"\\s+\", \" \", ...).strip())       3. Оставляем первые 1000 символов (сейчас, вместо 10000, на ваше усмотрение)       4. Запрашиваем у LLM (run_model) сведения про ИТМО, если текст не пустой     \"\"\"     logger.info(f\"Запускаю compress_pages_for_itmo для {len(raw_texts)} страниц\")      system_msg = {         \"role\": \"system\",         \"text\": (             \"Тебе дан текст страницы. Оставь только то, что связано с \"             \"Университетом ИТМО. Если нет упоминаний, напиши 'нет информации'.\"         ),     }      summaries = []     for idx, txt in enumerate(raw_texts):         # 1. Удаляем HTML-теги         text_no_html = BeautifulSoup(txt, \"html.parser\").get_text()          # 2. Преобразуем группы пробелов в один пробел + trim         text_one_space = re.sub(r\"\\s+\", \" \", text_no_html).strip()         if not text_one_space:             # Если после очистки текст оказался пустым, пропускаем             logger.info(f\"Page #{idx} после очистки оказался пустым, пропускаем.\")             continue          # 3. Оставляем первые 1000 символов         text_truncated = text_one_space[:1000]          # 4. Готовим запрос для модели         user_msg = {\"role\": \"user\", \"text\": text_truncated}         messages = [system_msg, user_msg]         summary = await run_model(messages)          logger.info(f\"Page #{idx} summary (first 100 chars): {summary[:100]}...\")         summaries.append(summary.strip())      # Объединяем сжатую информацию со всех страниц     big_context = \"\\n\\n\".join(summaries)     return big_context   ################################# # ОПРЕДЕЛИТЬ ВАРИАНТ (ДЛЯ ВОПРОСОВ С ВАРИАНТАМИ) ################################# async def ask_which_variant(user_query: str, big_context: str) -> Optional[int]:     \"\"\"     Спросить модель: 'Какой вариант правильный?' (1 строка = цифра или null),     Если big_context или сам user_query пустой — возвращаем None (ничего).     \"\"\"     # Если контекст или сам вопрос пустой — ничего не отвечаем     if not user_query.strip() or not big_context.strip():         logger.info(\"ask_which_variant: пустой user_query или big_context, возвращаем None\")         return None      system_msg = {         \"role\": \"system\",         \"text\": (             \"У пользователя есть вопрос с вариантами ответа. Опираясь на контекст, \"             \"в первой строке напиши номер (1..N). Если нельзя определить — напиши null.\"         )     }     user_msg = {         \"role\": \"user\",         \"text\": f\"Вопрос: {user_query}\\n\\nКонтекст:\\n{big_context}\"     }     messages = [system_msg, user_msg]     raw = await run_model(messages)     lines = raw.strip().split(\"\\n\", 1)     first_line = lines[0].strip().lower() if lines else \"null\"      if first_line.isdigit():         return int(first_line)     return None   ################################# # ПОЯСНЕНИЕ (СУЩЕСТВУЕТ ВЫБРАННЫЙ ВАРИАНТ ИЛИ НЕТ) ################################# async def ask_explanation(user_query: str, big_context: str, chosen_variant: Optional[int]) -> str:     \"\"\"     Спросить у модели пояснение.     Если user_query или big_context пустые, возвращаем пустую строку.     \"\"\"     if not user_query.strip() or not big_context.strip():         logger.info(\"ask_explanation: пустой user_query или big_context, возвращаем пустую строку\")         return \"\"      sys_msg = {         \"role\": \"system\",         \"text\": (             \"Объясни ответ на вопрос. Учитывай контекст про ИТМО. \"             \"Сделай 2 небольших предложения и как можно быстрее. \"             \"Если есть выбранный вариант, упомяни почему именно он верен.\"         )     }     variant_str = f\"(Выбранный вариант: {chosen_variant})\" if chosen_variant else \"\"     user_msg = {         \"role\": \"user\",         \"text\": f\"{user_query}\\n\\nКонтекст:\\n{big_context}\\n\\n{variant_str}\"     }      messages = [sys_msg, user_msg]     explanation = await run_model(messages)     return explanation.strip()","id":18}
+2025-01-31 08:29:08 | INFO | Processing prediction request with id: 18, query='import logging import re  import aiohttp import asyncio from bs4 import BeautifulSoup from typing import List, Tuple, Optional  from pydantic import HttpUrl from .config import SEARCH_API_KEY, CX from .model import run_model  ################################# # НАСТРОЙКА ЛОГИРОВАНИЯ ################################# logger = logging.getLogger("uvicorn") logging.basicConfig(     level=logging.INFO,     format="%(asctime)s | %(levelname)s | %(message)s" ) logger = logging.getLogger(__name__)  ################################# # ПАРАМЕТРЫ ################################# SEARCH_URL = "https://www.googleapis.com/customsearch/v1" # Допустим, хотим собрать в итоге 3 страницы. Будем просить 6 ссылок у Google # и потом оставлять первые 3 "непустых" результата NUM_GOOGLE_LINKS = 6 NUM_VALID_PAGES = 3   ################################# # ПРЕОБРАЗОВАНИЕ ЗАПРОСА ################################# async def transform_query_for_google(original_query: str) -> str:     system_msg = {         "role": "system",         "text": (             "Преобразуй вопрос пользователя в короткий поисковый запрос (1 строка), "             "чтобы Google мог легко найти информацию, связанную с Университетом ИТМО. "             "Не добавляй варианты ответа (1., 2. и т.д.)."         )     }     user_msg = {"role": "user", "text": original_query}     messages = [system_msg, user_msg]     result = await run_model(messages)     return result.strip() or original_query   ################################# # ПРОВЕРКА, ЯВЛЯЕТСЯ ЛИ ЗАПРОС С ВАРИАНТАМИ ################################# async def check_is_multiple_choice(query: str) -> bool:     """     Запрашиваем у LLM, есть ли варианты (yes/no).     """     system_msg = {         "role": "system",         "text": (             "Есть ли в отправленном тебе запросе варианты ответа на него? "             "ответь строго да или нет и только это."         )     }     user_msg = {"role": "user", "text": query}     messages = [system_msg, user_msg]     raw = await run_model(messages)      return (raw.strip().lower() == "да")   ################################# # ПОИСК ЧЕРЕЗ GOOGLE (БЕРЁМ БОЛЬШЕ ССЫЛОК) ################################# async def search_google(query: str) -> List[str]:     """     Выполняет запрос к Google Custom Search,     возвращая до NUM_GOOGLE_LINKS ссылок (вместо 3).     """     logger.info(f"search_google: query='{query}'")      params = {         "key": SEARCH_API_KEY,         "cx": CX,         "q": query,         # Берём больше ссылок (6), чтобы было из чего выбрать,         # если часть окажется пустой         "num": NUM_GOOGLE_LINKS     }     async with aiohttp.ClientSession() as session:         async with session.get(SEARCH_URL, params=params) as resp:             logger.info(f"search_google status={resp.status}")             if resp.status == 200:                 data = await resp.json()                 items = data.get("items", [])                 links = [it.get("link") for it in items if "link" in it]                 logger.info(f"search_google found {len(links)} links: {links}")                 # Возвращаем все полученные ссылки (до 6)                 return links             else:                 txt = await resp.text()                 logger.warning(f"search_google error {resp.status}: {txt}")     return []   ################################# # ЗАГРУЗКА ОДНОЙ СТРАНИЦЫ ################################# async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:     try:         logger.info(f"Начинаю загрузку страницы: {link}")         async with session.get(link, timeout=10) as resp:             if resp.status == 200:                 text = await resp.text()                 logger.info(f"Страница {link} загружена, размер: {len(text)} символов")                 return text             else:                 logger.warning(f"Не удалось загрузить {link}, статус {resp.status}")                 return ""     except Exception as e:         logger.error(f"Ошибка при загрузке {link}: {e}")         return ""   ################################# # ЗАГРУЗКА НЕСКОЛЬКИХ СТРАНИЦ, ПРОПУСК ПУСТЫХ ################################# async def fetch_page_texts(links: List[str]) -> List[str]:     """     Запрашивает тексты по всем ссылкам.     Возвращаем только непустые результаты.     Если нужно строго 3 непустых текста, берем первые 3.     """     logger.info(f"Начинаю загрузку списка ссылок: {links}")      async with aiohttp.ClientSession() as session:         tasks = [fetch_page_content(session, link) for link in links]         all_results = await asyncio.gather(*tasks)      valid_texts = [txt for txt in all_results if txt.strip()]     logger.info(         f"Успешно получили тексты для {len(all_results)} страниц, "         f"из них непустых: {len(valid_texts)}"     )      # Если нам нужно ровно 3 "непустых", берём только первые 3     return valid_texts[:NUM_VALID_PAGES]   ################################# # СЖАТИЕ И ОТБОР СВЕДЕНИЙ ПРО ИТМО ################################# async def compress_pages_for_itmo(raw_texts: List[str]) -> str:     """     Для каждого текста:       1. Убираем HTML-теги (BeautifulSoup)       2. Все подряд пробелы -> один пробел (re.sub(r"\s+", " ", ...).strip())       3. Оставляем первые 1000 символов (сейчас, вместо 10000, на ваше усмотрение)       4. Запрашиваем у LLM (run_model) сведения про ИТМО, если текст не пустой     """     logger.info(f"Запускаю compress_pages_for_itmo для {len(raw_texts)} страниц")      system_msg = {         "role": "system",         "text": (             "Тебе дан текст страницы. Оставь только то, что связано с "             "Университетом ИТМО. Если нет упоминаний, напиши 'нет информации'."         ),     }      summaries = []     for idx, txt in enumerate(raw_texts):         # 1. Удаляем HTML-теги         text_no_html = BeautifulSoup(txt, "html.parser").get_text()          # 2. Преобразуем группы пробелов в один пробел + trim         text_one_space = re.sub(r"\s+", " ", text_no_html).strip()         if not text_one_space:             # Если после очистки текст оказался пустым, пропускаем             logger.info(f"Page #{idx} после очистки оказался пустым, пропускаем.")             continue          # 3. Оставляем первые 1000 символов         text_truncated = text_one_space[:1000]          # 4. Готовим запрос для модели         user_msg = {"role": "user", "text": text_truncated}         messages = [system_msg, user_msg]         summary = await run_model(messages)          logger.info(f"Page #{idx} summary (first 100 chars): {summary[:100]}...")         summaries.append(summary.strip())      # Объединяем сжатую информацию со всех страниц     big_context = "\n\n".join(summaries)     return big_context   ################################# # ОПРЕДЕЛИТЬ ВАРИАНТ (ДЛЯ ВОПРОСОВ С ВАРИАНТАМИ) ################################# async def ask_which_variant(user_query: str, big_context: str) -> Optional[int]:     """     Спросить модель: 'Какой вариант правильный?' (1 строка = цифра или null),     Если big_context или сам user_query пустой — возвращаем None (ничего).     """     # Если контекст или сам вопрос пустой — ничего не отвечаем     if not user_query.strip() or not big_context.strip():         logger.info("ask_which_variant: пустой user_query или big_context, возвращаем None")         return None      system_msg = {         "role": "system",         "text": (             "У пользователя есть вопрос с вариантами ответа. Опираясь на контекст, "             "в первой строке напиши номер (1..N). Если нельзя определить — напиши null."         )     }     user_msg = {         "role": "user",         "text": f"Вопрос: {user_query}\n\nКонтекст:\n{big_context}"     }     messages = [system_msg, user_msg]     raw = await run_model(messages)     lines = raw.strip().split("\n", 1)     first_line = lines[0].strip().lower() if lines else "null"      if first_line.isdigit():         return int(first_line)     return None   ################################# # ПОЯСНЕНИЕ (СУЩЕСТВУЕТ ВЫБРАННЫЙ ВАРИАНТ ИЛИ НЕТ) ################################# async def ask_explanation(user_query: str, big_context: str, chosen_variant: Optional[int]) -> str:     """     Спросить у модели пояснение.     Если user_query или big_context пустые, возвращаем пустую строку.     """     if not user_query.strip() or not big_context.strip():         logger.info("ask_explanation: пустой user_query или big_context, возвращаем пустую строку")         return ""      sys_msg = {         "role": "system",         "text": (             "Объясни ответ на вопрос. Учитывай контекст про ИТМО. "             "Сделай 2 небольших предложения и как можно быстрее. "             "Если есть выбранный вариант, упомяни почему именно он верен."         )     }     variant_str = f"(Выбранный вариант: {chosen_variant})" if chosen_variant else ""     user_msg = {         "role": "user",         "text": f"{user_query}\n\nКонтекст:\n{big_context}\n\n{variant_str}"     }      messages = [sys_msg, user_msg]     explanation = await run_model(messages)     return explanation.strip()'
+2025-01-31 08:29:08 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"import logging import re  import aiohttp import asyncio from bs4 import BeautifulSoup from typing import List, Tuple, Optional  from pydantic import HttpUrl from .config import SEARCH_API_KEY, CX from .model import run_model  ################################# # НАСТРОЙКА ЛОГИРОВАНИЯ ################################# logger = logging.getLogger(\"uvicorn\") logging.basicConfig(     level=logging.INFO,     format=\"%(asctime)s | %(levelname)s | %(message)s\" ) logger = logging.getLogger(__name__)  ################################# # ПАРАМЕТРЫ ################################# SEARCH_URL = \"https://www.googleapis.com/customsearch/v1\" # Допустим, хотим собрать в итоге 3 страницы. Будем просить 6 ссылок у Google # и потом оставлять первые 3 \"непустых\" результата NUM_GOOGLE_LINKS = 6 NUM_VALID_PAGES = 3   ################################# # ПРЕОБРАЗОВАНИЕ ЗАПРОСА ################################# async def transform_query_for_google(original_query: str) -> str:     system_msg = {         \"role\": \"system\",         \"text\": (             \"Преобразуй вопрос пользователя в короткий поисковый запрос (1 строка), \"             \"чтобы Google мог легко найти информацию, связанную с Университетом ИТМО. \"             \"Не добавляй варианты ответа (1., 2. и т.д.).\"         )     }     user_msg = {\"role\": \"user\", \"text\": original_query}     messages = [system_msg, user_msg]     result = await run_model(messages)     return result.strip() or original_query   ################################# # ПРОВЕРКА, ЯВЛЯЕТСЯ ЛИ ЗАПРОС С ВАРИАНТАМИ ################################# async def check_is_multiple_choice(query: str) -> bool:     \"\"\"     Запрашиваем у LLM, есть ли варианты (yes/no).     \"\"\"     system_msg = {         \"role\": \"system\",         \"text\": (             \"Есть ли в отправленном тебе запросе варианты ответа на него? \"             \"ответь строго да или нет и только это.\"         )     }     user_msg = {\"role\": \"user\", \"text\": query}     messages = [system_msg, user_msg]     raw = await run_model(messages)      return (raw.strip().lower() == \"да\")   ################################# # ПОИСК ЧЕРЕЗ GOOGLE (БЕРЁМ БОЛЬШЕ ССЫЛОК) ################################# async def search_google(query: str) -> List[str]:     \"\"\"     Выполняет запрос к Google Custom Search,     возвращая до NUM_GOOGLE_LINKS ссылок (вместо 3).     \"\"\"     logger.info(f\"search_google: query='{query}'\")      params = {         \"key\": SEARCH_API_KEY,         \"cx\": CX,         \"q\": query,         # Берём больше ссылок (6), чтобы было из чего выбрать,         # если часть окажется пустой         \"num\": NUM_GOOGLE_LINKS     }     async with aiohttp.ClientSession() as session:         async with session.get(SEARCH_URL, params=params) as resp:             logger.info(f\"search_google status={resp.status}\")             if resp.status == 200:                 data = await resp.json()                 items = data.get(\"items\", [])                 links = [it.get(\"link\") for it in items if \"link\" in it]                 logger.info(f\"search_google found {len(links)} links: {links}\")                 # Возвращаем все полученные ссылки (до 6)                 return links             else:                 txt = await resp.text()                 logger.warning(f\"search_google error {resp.status}: {txt}\")     return []   ################################# # ЗАГРУЗКА ОДНОЙ СТРАНИЦЫ ################################# async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:     try:         logger.info(f\"Начинаю загрузку страницы: {link}\")         async with session.get(link, timeout=10) as resp:             if resp.status == 200:                 text = await resp.text()                 logger.info(f\"Страница {link} загружена, размер: {len(text)} символов\")                 return text             else:                 logger.warning(f\"Не удалось загрузить {link}, статус {resp.status}\")                 return \"\"     except Exception as e:         logger.error(f\"Ошибка при загрузке {link}: {e}\")         return \"\"   ################################# # ЗАГРУЗКА НЕСКОЛЬКИХ СТРАНИЦ, ПРОПУСК ПУСТЫХ ################################# async def fetch_page_texts(links: List[str]) -> List[str]:     \"\"\"     Запрашивает тексты по всем ссылкам.     Возвращаем только непустые результаты.     Если нужно строго 3 непустых текста, берем первые 3.     \"\"\"     logger.info(f\"Начинаю загрузку списка ссылок: {links}\")      async with aiohttp.ClientSession() as session:         tasks = [fetch_page_content(session, link) for link in links]         all_results = await asyncio.gather(*tasks)      valid_texts = [txt for txt in all_results if txt.strip()]     logger.info(         f\"Успешно получили тексты для {len(all_results)} страниц, \"         f\"из них непустых: {len(valid_texts)}\"     )      # Если нам нужно ровно 3 \"непустых\", берём только первые 3     return valid_texts[:NUM_VALID_PAGES]   ################################# # СЖАТИЕ И ОТБОР СВЕДЕНИЙ ПРО ИТМО ################################# async def compress_pages_for_itmo(raw_texts: List[str]) -> str:     \"\"\"     Для каждого текста:       1. Убираем HTML-теги (BeautifulSoup)       2. Все подряд пробелы -> один пробел (re.sub(r\"\\s+\", \" \", ...).strip())       3. Оставляем первые 1000 символов (сейчас, вместо 10000, на ваше усмотрение)       4. Запрашиваем у LLM (run_model) сведения про ИТМО, если текст не пустой     \"\"\"     logger.info(f\"Запускаю compress_pages_for_itmo для {len(raw_texts)} страниц\")      system_msg = {         \"role\": \"system\",         \"text\": (             \"Тебе дан текст страницы. Оставь только то, что связано с \"             \"Университетом ИТМО. Если нет упоминаний, напиши 'нет информации'.\"         ),     }      summaries = []     for idx, txt in enumerate(raw_texts):         # 1. Удаляем HTML-теги         text_no_html = BeautifulSoup(txt, \"html.parser\").get_text()          # 2. Преобразуем группы пробелов в один пробел + trim         text_one_space = re.sub(r\"\\s+\", \" \", text_no_html).strip()         if not text_one_space:             # Если после очистки текст оказался пустым, пропускаем             logger.info(f\"Page #{idx} после очистки оказался пустым, пропускаем.\")             continue          # 3. Оставляем первые 1000 символов         text_truncated = text_one_space[:1000]          # 4. Готовим запрос для модели         user_msg = {\"role\": \"user\", \"text\": text_truncated}         messages = [system_msg, user_msg]         summary = await run_model(messages)          logger.info(f\"Page #{idx} summary (first 100 chars): {summary[:100]}...\")         summaries.append(summary.strip())      # Объединяем сжатую информацию со всех страниц     big_context = \"\\n\\n\".join(summaries)     return big_context   ################################# # ОПРЕДЕЛИТЬ ВАРИАНТ (ДЛЯ ВОПРОСОВ С ВАРИАНТАМИ) ################################# async def ask_which_variant(user_query: str, big_context: str) -> Optional[int]:     \"\"\"     Спросить модель: 'Какой вариант правильный?' (1 строка = цифра или null),     Если big_context или сам user_query пустой — возвращаем None (ничего).     \"\"\"     # Если контекст или сам вопрос пустой — ничего не отвечаем     if not user_query.strip() or not big_context.strip():         logger.info(\"ask_which_variant: пустой user_query или big_context, возвращаем None\")         return None      system_msg = {         \"role\": \"system\",         \"text\": (             \"У пользователя есть вопрос с вариантами ответа. Опираясь на контекст, \"             \"в первой строке напиши номер (1..N). Если нельзя определить — напиши null.\"         )     }     user_msg = {         \"role\": \"user\",         \"text\": f\"Вопрос: {user_query}\\n\\nКонтекст:\\n{big_context}\"     }     messages = [system_msg, user_msg]     raw = await run_model(messages)     lines = raw.strip().split(\"\\n\", 1)     first_line = lines[0].strip().lower() if lines else \"null\"      if first_line.isdigit():         return int(first_line)     return None   ################################# # ПОЯСНЕНИЕ (СУЩЕСТВУЕТ ВЫБРАННЫЙ ВАРИАНТ ИЛИ НЕТ) ################################# async def ask_explanation(user_query: str, big_context: str, chosen_variant: Optional[int]) -> str:     \"\"\"     Спросить у модели пояснение.     Если user_query или big_context пустые, возвращаем пустую строку.     \"\"\"     if not user_query.strip() or not big_context.strip():         logger.info(\"ask_explanation: пустой user_query или big_context, возвращаем пустую строку\")         return \"\"      sys_msg = {         \"role\": \"system\",         \"text\": (             \"Объясни ответ на вопрос. Учитывай контекст про ИТМО. \"             \"Сделай 2 небольших предложения и как можно быстрее. \"             \"Если есть выбранный вариант, упомяни почему именно он верен.\"         )     }     variant_str = f\"(Выбранный вариант: {chosen_variant})\" if chosen_variant else \"\"     user_msg = {         \"role\": \"user\",         \"text\": f\"{user_query}\\n\\nКонтекст:\\n{big_context}\\n\\n{variant_str}\"     }      messages = [sys_msg, user_msg]     explanation = await run_model(messages)     return explanation.strip()","id":18}
+2025-01-31 08:29:08 | INFO | Processing prediction request with id: 18, query='import logging import re  import aiohttp import asyncio from bs4 import BeautifulSoup from typing import List, Tuple, Optional  from pydantic import HttpUrl from .config import SEARCH_API_KEY, CX from .model import run_model  ################################# # НАСТРОЙКА ЛОГИРОВАНИЯ ################################# logger = logging.getLogger("uvicorn") logging.basicConfig(     level=logging.INFO,     format="%(asctime)s | %(levelname)s | %(message)s" ) logger = logging.getLogger(__name__)  ################################# # ПАРАМЕТРЫ ################################# SEARCH_URL = "https://www.googleapis.com/customsearch/v1" # Допустим, хотим собрать в итоге 3 страницы. Будем просить 6 ссылок у Google # и потом оставлять первые 3 "непустых" результата NUM_GOOGLE_LINKS = 6 NUM_VALID_PAGES = 3   ################################# # ПРЕОБРАЗОВАНИЕ ЗАПРОСА ################################# async def transform_query_for_google(original_query: str) -> str:     system_msg = {         "role": "system",         "text": (             "Преобразуй вопрос пользователя в короткий поисковый запрос (1 строка), "             "чтобы Google мог легко найти информацию, связанную с Университетом ИТМО. "             "Не добавляй варианты ответа (1., 2. и т.д.)."         )     }     user_msg = {"role": "user", "text": original_query}     messages = [system_msg, user_msg]     result = await run_model(messages)     return result.strip() or original_query   ################################# # ПРОВЕРКА, ЯВЛЯЕТСЯ ЛИ ЗАПРОС С ВАРИАНТАМИ ################################# async def check_is_multiple_choice(query: str) -> bool:     """     Запрашиваем у LLM, есть ли варианты (yes/no).     """     system_msg = {         "role": "system",         "text": (             "Есть ли в отправленном тебе запросе варианты ответа на него? "             "ответь строго да или нет и только это."         )     }     user_msg = {"role": "user", "text": query}     messages = [system_msg, user_msg]     raw = await run_model(messages)      return (raw.strip().lower() == "да")   ################################# # ПОИСК ЧЕРЕЗ GOOGLE (БЕРЁМ БОЛЬШЕ ССЫЛОК) ################################# async def search_google(query: str) -> List[str]:     """     Выполняет запрос к Google Custom Search,     возвращая до NUM_GOOGLE_LINKS ссылок (вместо 3).     """     logger.info(f"search_google: query='{query}'")      params = {         "key": SEARCH_API_KEY,         "cx": CX,         "q": query,         # Берём больше ссылок (6), чтобы было из чего выбрать,         # если часть окажется пустой         "num": NUM_GOOGLE_LINKS     }     async with aiohttp.ClientSession() as session:         async with session.get(SEARCH_URL, params=params) as resp:             logger.info(f"search_google status={resp.status}")             if resp.status == 200:                 data = await resp.json()                 items = data.get("items", [])                 links = [it.get("link") for it in items if "link" in it]                 logger.info(f"search_google found {len(links)} links: {links}")                 # Возвращаем все полученные ссылки (до 6)                 return links             else:                 txt = await resp.text()                 logger.warning(f"search_google error {resp.status}: {txt}")     return []   ################################# # ЗАГРУЗКА ОДНОЙ СТРАНИЦЫ ################################# async def fetch_page_content(session: aiohttp.ClientSession, link: str) -> str:     try:         logger.info(f"Начинаю загрузку страницы: {link}")         async with session.get(link, timeout=10) as resp:             if resp.status == 200:                 text = await resp.text()                 logger.info(f"Страница {link} загружена, размер: {len(text)} символов")                 return text             else:                 logger.warning(f"Не удалось загрузить {link}, статус {resp.status}")                 return ""     except Exception as e:         logger.error(f"Ошибка при загрузке {link}: {e}")         return ""   ################################# # ЗАГРУЗКА НЕСКОЛЬКИХ СТРАНИЦ, ПРОПУСК ПУСТЫХ ################################# async def fetch_page_texts(links: List[str]) -> List[str]:     """     Запрашивает тексты по всем ссылкам.     Возвращаем только непустые результаты.     Если нужно строго 3 непустых текста, берем первые 3.     """     logger.info(f"Начинаю загрузку списка ссылок: {links}")      async with aiohttp.ClientSession() as session:         tasks = [fetch_page_content(session, link) for link in links]         all_results = await asyncio.gather(*tasks)      valid_texts = [txt for txt in all_results if txt.strip()]     logger.info(         f"Успешно получили тексты для {len(all_results)} страниц, "         f"из них непустых: {len(valid_texts)}"     )      # Если нам нужно ровно 3 "непустых", берём только первые 3     return valid_texts[:NUM_VALID_PAGES]   ################################# # СЖАТИЕ И ОТБОР СВЕДЕНИЙ ПРО ИТМО ################################# async def compress_pages_for_itmo(raw_texts: List[str]) -> str:     """     Для каждого текста:       1. Убираем HTML-теги (BeautifulSoup)       2. Все подряд пробелы -> один пробел (re.sub(r"\s+", " ", ...).strip())       3. Оставляем первые 1000 символов (сейчас, вместо 10000, на ваше усмотрение)       4. Запрашиваем у LLM (run_model) сведения про ИТМО, если текст не пустой     """     logger.info(f"Запускаю compress_pages_for_itmo для {len(raw_texts)} страниц")      system_msg = {         "role": "system",         "text": (             "Тебе дан текст страницы. Оставь только то, что связано с "             "Университетом ИТМО. Если нет упоминаний, напиши 'нет информации'."         ),     }      summaries = []     for idx, txt in enumerate(raw_texts):         # 1. Удаляем HTML-теги         text_no_html = BeautifulSoup(txt, "html.parser").get_text()          # 2. Преобразуем группы пробелов в один пробел + trim         text_one_space = re.sub(r"\s+", " ", text_no_html).strip()         if not text_one_space:             # Если после очистки текст оказался пустым, пропускаем             logger.info(f"Page #{idx} после очистки оказался пустым, пропускаем.")             continue          # 3. Оставляем первые 1000 символов         text_truncated = text_one_space[:1000]          # 4. Готовим запрос для модели         user_msg = {"role": "user", "text": text_truncated}         messages = [system_msg, user_msg]         summary = await run_model(messages)          logger.info(f"Page #{idx} summary (first 100 chars): {summary[:100]}...")         summaries.append(summary.strip())      # Объединяем сжатую информацию со всех страниц     big_context = "\n\n".join(summaries)     return big_context   ################################# # ОПРЕДЕЛИТЬ ВАРИАНТ (ДЛЯ ВОПРОСОВ С ВАРИАНТАМИ) ################################# async def ask_which_variant(user_query: str, big_context: str) -> Optional[int]:     """     Спросить модель: 'Какой вариант правильный?' (1 строка = цифра или null),     Если big_context или сам user_query пустой — возвращаем None (ничего).     """     # Если контекст или сам вопрос пустой — ничего не отвечаем     if not user_query.strip() or not big_context.strip():         logger.info("ask_which_variant: пустой user_query или big_context, возвращаем None")         return None      system_msg = {         "role": "system",         "text": (             "У пользователя есть вопрос с вариантами ответа. Опираясь на контекст, "             "в первой строке напиши номер (1..N). Если нельзя определить — напиши null."         )     }     user_msg = {         "role": "user",         "text": f"Вопрос: {user_query}\n\nКонтекст:\n{big_context}"     }     messages = [system_msg, user_msg]     raw = await run_model(messages)     lines = raw.strip().split("\n", 1)     first_line = lines[0].strip().lower() if lines else "null"      if first_line.isdigit():         return int(first_line)     return None   ################################# # ПОЯСНЕНИЕ (СУЩЕСТВУЕТ ВЫБРАННЫЙ ВАРИАНТ ИЛИ НЕТ) ################################# async def ask_explanation(user_query: str, big_context: str, chosen_variant: Optional[int]) -> str:     """     Спросить у модели пояснение.     Если user_query или big_context пустые, возвращаем пустую строку.     """     if not user_query.strip() or not big_context.strip():         logger.info("ask_explanation: пустой user_query или big_context, возвращаем пустую строку")         return ""      sys_msg = {         "role": "system",         "text": (             "Объясни ответ на вопрос. Учитывай контекст про ИТМО. "             "Сделай 2 небольших предложения и как можно быстрее. "             "Если есть выбранный вариант, упомяни почему именно он верен."         )     }     variant_str = f"(Выбранный вариант: {chosen_variant})" if chosen_variant else ""     user_msg = {         "role": "user",         "text": f"{user_query}\n\nКонтекст:\n{big_context}\n\n{variant_str}"     }      messages = [sys_msg, user_msg]     explanation = await run_model(messages)     return explanation.strip()'
+2025-01-31 08:29:09 | INFO | Refined query: Поисковый запрос про университет ИТМО., is_multi=False
+2025-01-31 08:29:10 | INFO | Got links: ['https://itmo.ru/search_form/', 'https://tt.itmo.ru/digital-tools/', 'https://lib.itmo.ru/e-catalog', 'https://news.itmo.ru/ru/news/7562/', 'https://lib.itmo.ru/tpost/tbr2suhvx1-my-loft-vse-resursi-vashei-biblioteki-na', 'https://2030.itmo.ru/search_for_effective_measures_to_reduce_anxiety_and_etc']
+2025-01-31 08:34:33 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":" \"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015\"","id":1}
+2025-01-31 08:34:33 | INFO | Processing prediction request with id: 1, query=' "В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015"'
+2025-01-31 08:34:37 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:34:37 | INFO | Got links: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm', 'https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm', 'https://edu.itmo.ru/files/697']
+2025-01-31 08:34:51 | INFO | chosen_variant = None
+2025-01-31 08:34:52 | INFO | Final response: id=1 answer=None reasoning='В представленных вариантах ответа нет информации о том, в каком году Университет ИТМО был включён в число Национальных исследовательских университетов России.' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://academia.interfax.ru/ru/news/articles/5044/'), HttpUrl('https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm'), HttpUrl('https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E'), HttpUrl('https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm'), HttpUrl('https://edu.itmo.ru/files/697')]
+2025-01-31 08:34:52 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":1,"answer":null,"reasoning":"В представленных вариантах ответа нет информации о том, в каком году Университет ИТМО был включён в число Национальных исследовательских университетов России.","sources":["https://itmo.ru/","https://academia.interfax.ru/ru/news/articles/5044/","https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm","https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E","https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm","https://edu.itmo.ru/files/697"]}
+Duration: 18.616s
+2025-01-31 08:39:54 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 08:39:54 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.005s
+2025-01-31 08:39:54 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":2}
+2025-01-31 08:39:54 | INFO | Processing prediction request with id: 2, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:40:03 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:40:03 | INFO | Got links: ['https://itmo.ru/', 'https://edu.itmo.ru/files/697', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E', 'https://news.itmo.ru/ru/university_live/ratings/news/12705/']
+2025-01-31 08:40:14 | ERROR | Internal error: expected string or bytes-like object
+2025-01-31 08:40:14 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 19.365s
+2025-01-31 08:42:56 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":3}
+2025-01-31 08:42:56 | INFO | Processing prediction request with id: 3, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:43:03 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:43:03 | INFO | Got links: ['https://itmo.ru/', 'https://edu.itmo.ru/files/697', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E', 'https://news.itmo.ru/ru/university_live/ratings/news/12705/']
+2025-01-31 08:43:14 | INFO | chosen_variant = None
+2025-01-31 08:43:14 | INFO | Final response: id=3 answer=None reasoning='' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://edu.itmo.ru/files/697'), HttpUrl('https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm'), HttpUrl('https://academia.interfax.ru/ru/news/articles/5044/'), HttpUrl('https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/12705/')]
+2025-01-31 08:43:14 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":3,"answer":null,"reasoning":"","sources":["https://itmo.ru/","https://edu.itmo.ru/files/697","https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm","https://academia.interfax.ru/ru/news/articles/5044/","https://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D0%98%D0%A2%D0%9C%D0%9E","https://news.itmo.ru/ru/university_live/ratings/news/12705/"]}
+Duration: 17.529s
+2025-01-31 08:44:45 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":4}
+2025-01-31 08:44:45 | INFO | Processing prediction request with id: 4, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:45:09 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:45:09 | INFO | Got links: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm']
+2025-01-31 08:45:23 | ERROR | Internal error: <AioRpcError of RPC that terminated with:
+	code = StatusCode.INVALID_ARGUMENT
+	details = "Error in session internal_id=88ee4135-a9d04325-48cde020-3c70ca96&request_id=2c6ffe71-c9d3-412d-8f51-9d4eb41bee3f&client_request_id=727606a0-45ed-419c-a78a-53d92ccd5e56&folder_id=b1ge70f9o6ipck99s5m4: empty message text"
+	debug_error_string = "UNKNOWN:Error received from peer ipv4:158.160.54.160:443 {created_time:"2025-01-31T08:45:23.350637049+00:00", grpc_status:3, grpc_message:"Error in session internal_id=88ee4135-a9d04325-48cde020-3c70ca96&request_id=2c6ffe71-c9d3-412d-8f51-9d4eb41bee3f&client_request_id=727606a0-45ed-419c-a78a-53d92ccd5e56&folder_id=b1ge70f9o6ipck99s5m4: empty message text"}"
+	endpoint = "llm.api.cloud.yandex.net:443"
+	stub_class = TextGenerationServiceStub
+	x-client-request-id = "727606a0-45ed-419c-a78a-53d92ccd5e56"
+>
+2025-01-31 08:45:23 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 38.184s
+2025-01-31 08:46:14 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":5}
+2025-01-31 08:46:14 | INFO | Processing prediction request with id: 5, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 08:46:25 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 08:46:25 | INFO | Got links: ['https://itmo.ru/', 'https://academia.interfax.ru/ru/news/articles/5044/', 'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm']
+2025-01-31 08:46:53 | INFO | chosen_variant = 2
+2025-01-31 08:46:54 | INFO | Final response: id=5 answer=2 reasoning='Университет ИТМО был включён в число национальных исследовательских университетов России в 2009 году.' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://academia.interfax.ru/ru/news/articles/5044/'), HttpUrl('https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm')]
+2025-01-31 08:46:54 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":5,"answer":2,"reasoning":"Университет ИТМО был включён в число национальных исследовательских университетов России в 2009 году.","sources":["https://itmo.ru/","https://academia.interfax.ru/ru/news/articles/5044/","https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm"]}
+Duration: 40.807s
+2025-01-31 08:48:27 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":6}
+2025-01-31 08:48:27 | INFO | Processing prediction request with id: 6, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-31 08:48:30 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=True
+2025-01-31 08:48:31 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 08:48:34 | INFO | chosen_variant = 3
+2025-01-31 08:48:34 | INFO | Final response: id=6 answer=3 reasoning='Университет ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 08:48:34 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":6,"answer":3,"reasoning":"Университет ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 7.276s
+2025-01-31 08:49:52 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":7}
+2025-01-31 08:49:52 | INFO | Processing prediction request with id: 7, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-31 08:49:55 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=True
+2025-01-31 08:49:55 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 08:49:59 | INFO | chosen_variant = 3
+2025-01-31 08:50:01 | INFO | Final response: id=7 answer=3 reasoning='Ответ взят из источника об университете ИТМО. По состоянию на 2021 год университет впервые вошёл в топ-400 мировых вузов в рейтинге QS World University Rankings.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 08:50:01 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":7,"answer":3,"reasoning":"Ответ взят из источника об университете ИТМО. По состоянию на 2021 год университет впервые вошёл в топ-400 мировых вузов в рейтинге QS World University Rankings.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 9.009s
+2025-01-31 09:08:03 | INFO | Incoming request: OPTIONS http://localhost:8080/api/request
+Request body: 
+2025-01-31 09:08:03 | INFO | Request completed: OPTIONS http://localhost:8080/api/request
+Status: 200
+Response body: OK
+Duration: 0.003s
+2025-01-31 09:08:03 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":8}
+2025-01-31 09:08:03 | INFO | Processing prediction request with id: 8, query='В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-31 09:08:15 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=True
+2025-01-31 09:08:16 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 09:08:17 | ERROR | Internal error: 'coroutine' object has no attribute 'done'
+2025-01-31 09:08:17 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 500
+Response body: {"detail":"Internal server error"}
+Duration: 13.820s
+2025-01-31 09:10:17 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"user: В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\\n1. ARWU (Shanghai Ranking)\\n2. Times Higher Education (THE) World University Rankings\\n3. QS World University Rankings\\n4. U.S. News & World Report Best Global Universities","id":9}
+2025-01-31 09:10:17 | INFO | Processing prediction request with id: 9, query='user: В каком рейтинге (по состоянию на 2021 год) ИТМО впервые вошёл в топ-400 мировых университетов?\n1. ARWU (Shanghai Ranking)\n2. Times Higher Education (THE) World University Rankings\n3. QS World University Rankings\n4. U.S. News & World Report Best Global Universities'
+2025-01-31 09:10:19 | INFO | Refined query: В каком рейтинге 2021 года ИТМО впервые вошёл в топ-400 мировых университетов?, is_multi=True
+2025-01-31 09:10:19 | INFO | Got links: ['https://news.itmo.ru/ru/university_live/ratings/news/10389/', 'https://career.habr.com/companies/itmo', 'https://news.itmo.ru/ru/university_live/ratings/news/10284/']
+2025-01-31 09:10:22 | INFO | chosen_variant = 2
+2025-01-31 09:10:23 | INFO | Final response: id=9 answer=2 reasoning='Ответ на вопрос: университет ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году по версии Times Higher Education (THE) World University Rankings.\n\nИсточник информации: контекст не содержит полного списка рейтингов, но в нём есть упоминание попадания университета ИТМО в один из них.' sources=[HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10389/'), HttpUrl('https://career.habr.com/companies/itmo'), HttpUrl('https://news.itmo.ru/ru/university_live/ratings/news/10284/')]
+2025-01-31 09:10:23 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":9,"answer":2,"reasoning":"Ответ на вопрос: университет ИТМО впервые вошёл в топ-400 мировых университетов в 2021 году по версии Times Higher Education (THE) World University Rankings.\n\nИсточник информации: контекст не содержит полного списка рейтингов, но в нём есть упоминание попадания университета ИТМО в один из них.","sources":["https://news.itmo.ru/ru/university_live/ratings/news/10389/","https://career.habr.com/companies/itmo","https://news.itmo.ru/ru/university_live/ratings/news/10284/"]}
+Duration: 6.895s
+2025-01-31 09:11:42 | INFO | Incoming request: POST http://localhost:8080/api/request
+Request body: {"query":"В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\\n1. 2007\\n2. 2009\\n3. 2011\\n4. 2015","id":10}
+2025-01-31 09:11:42 | INFO | Processing prediction request with id: 10, query='В каком году Университет ИТМО был включён в число Национальных исследовательских университетов России?\n1. 2007\n2. 2009\n3. 2011\n4. 2015'
+2025-01-31 09:11:47 | INFO | Refined query: Когда университет ИТМО включили в число национальных исследовательских университетов России?, is_multi=True
+2025-01-31 09:11:47 | INFO | Got links: ['https://itmo.ru/', 'https://edu.itmo.ru/files/697', 'https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm']
+2025-01-31 09:11:49 | INFO | chosen_variant = 2
+2025-01-31 09:11:50 | INFO | Final response: id=10 answer=2 reasoning='Университет ИТМО был включён в число национальных исследовательских университетов России в 2009 году. Информация взята из открытых источников, посвящённых истории и статусу Университета ИТМО.' sources=[HttpUrl('https://itmo.ru/'), HttpUrl('https://edu.itmo.ru/files/697'), HttpUrl('https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm')]
+2025-01-31 09:11:50 | INFO | Request completed: POST http://localhost:8080/api/request
+Status: 200
+Response body: {"id":10,"answer":2,"reasoning":"Университет ИТМО был включён в число национальных исследовательских университетов России в 2009 году. Информация взята из открытых источников, посвящённых истории и статусу Университета ИТМО.","sources":["https://itmo.ru/","https://edu.itmo.ru/files/697","https://itmo.ru/ru/page/174/programma_razvitiya_nacionalnogo_issledovatelskogo_universiteta_programma_razvitiya_niu_itmo.htm"]}
+Duration: 8.865s
