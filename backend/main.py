@@ -18,22 +18,23 @@ from search_itmo.services import (
     ask_explanation,
 )
 
-
 app = FastAPI()
 logger = None
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:8081"],
+    allow_origins=["http://localhost:3000", "http://localhost:8081", "http://51.250.74.4:8081"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def startup_event():
     global logger
     logger = await setup_logger()
+
 
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
@@ -57,6 +58,7 @@ async def log_requests(request: Request, call_next):
         headers=dict(response.headers),
         media_type=response.media_type,
     )
+
 
 @app.post("/api/request", response_model=PredictionResponse)
 async def predict(body: PredictionRequest):
