@@ -140,7 +140,7 @@ def run_tests(api_url: str):
             print(f"Test {test_case['id']} ❌: Error - {str(e)}")
 
     end_time = time.perf_counter()
-    elapsed_time = end_time - start_time 
+    elapsed_time = end_time - start_time
 
     print(f"\nResults: {success_count}/{total_cases} passed ({success_count / total_cases:.0%})")
     print(f"Total execution time: {elapsed_time:.2f} seconds")
